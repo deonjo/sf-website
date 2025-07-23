@@ -13,7 +13,7 @@ const blogEntries = await getCollection('blog');
   <section class="blog-list">
     <div class="container">
       <ul>
-        {blogEntries.map(entry => (
+        {blogEntries.map((entry: typeof blogEntries[number]) => (
           <li>
             <a href={`/blog/${entry.slug}`}>{entry.data.title}</a>
             <p>{entry.data.description}</p>
