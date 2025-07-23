@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<Layout title={entry.data.title}>
+  <section class="blog-post-hero">
+    <div class="container">
+      <h1>{entry.data.title}</h1>
+      <p>By {entry.data.author} on {entry.data.pubDate}</p>
+    </div>
+  </section>
+  <section class="blog-post-content">
+    <div class="container">
+      <Content />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog-post-hero {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .blog-post-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .blog-post-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  .blog-post-content {
+    padding: 5rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .blog-post-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+  }
+
+  .blog-post-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #475569;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-post-content a {
+    color: #059669;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .blog-post-content a:hover {
+    color: #047857;
+  }
+</style>

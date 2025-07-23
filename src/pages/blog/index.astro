@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const blogEntries = await getCollection('blog');
+---
+<Layout title="Blog">
+  <section class="blog-hero">
+    <div class="container">
+      <h1>Blog</h1>
+    </div>
+  </section>
+  <section class="blog-list">
+    <div class="container">
+      <ul>
+        {blogEntries.map(entry => (
+          <li>
+            <a href={`/blog/${entry.slug}`}>{entry.data.title}</a>
+            <p>{entry.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog-hero {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .blog-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .blog-list ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .blog-list li {
+    margin-bottom: 2rem;
+  }
+
+  .blog-list a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #1e293b;
+    transition: color 0.3s ease;
+  }
+
+  .blog-list a:hover {
+    color: #059669;
+  }
+
+  .blog-list p {
+    color: #475569;
+    line-height: 1.6;
+  }
+</style>

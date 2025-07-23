@@ -5,10 +5,16 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:klesis": "cross-env SITE_NAME=klesis astro build",
+    "build:koinonia": "cross-env SITE_NAME=koinonia astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.2"
+    "astro": "^5.12.2",
+    "astro-content": "^0.0.0-alpha.13"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

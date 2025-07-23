@@ -17,7 +17,6 @@ import Layout from '../layouts/Layout.astro';
 
 	<section class="form-section">
 		<div class="container">
-			<div class="form-container">
 				<iframe 
 					src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal" 
 					width="100%" 
@@ -29,7 +28,6 @@ import Layout from '../layouts/Layout.astro';
 				>
 					Loading…
 				</iframe>
-			</div>
 		</div>
 	</section>
 
@@ -40,15 +38,6 @@ import Layout from '../layouts/Layout.astro';
 					Klesis is a Christian fellowship serving college students and young professionals in the San Francisco area. 
 					We gather weekly for worship, Bible study, and fellowship as we grow together in our faith.
 				</p>
-				<div class="quick-links">
-					<h4>Quick Links</h4>
-					<ul>
-						<li><a href="/">About Klesis</a></li>
-						<li><a href="/church">Our Community</a></li>
-						<li><a href="/devotions">Daily Devotions</a></li>
-						<li><a href="/statement-of-faith">Statement of Faith</a></li>
-					</ul>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -89,18 +78,15 @@ import Layout from '../layouts/Layout.astro';
 		background: white;
 	}
 
-	.form-container {
+	.form-section .container {
 		max-width: 900px;
 		margin: 0 auto;
 		padding: 2rem;
-		background: #f8fafc;
-		border-radius: 16px;
-		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 	}
 
-	.form-container iframe {
+	.form-section .container iframe {
 		width: 100%;
-		height: 1200px;
+		height: 1500px;
 		border: none;
 		border-radius: 12px;
 		background: white;
