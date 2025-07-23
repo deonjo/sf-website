@@ -1,0 +1,183 @@
+---
+export interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Klesis Christian Fellowship', description = "Klesis is a campus Christian group. We're open to all students regardless of your background. We invite you to come check us out!" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar">
+			<div class="nav-container">
+				<a href="/" class="nav-logo">Klesis</a>
+				<div class="nav-menu">
+					<a href="/" class="nav-link">Home</a>
+					<a href="/church" class="nav-link">Church</a>
+					<a href="/devotions" class="nav-link">Devotions</a>
+					<a href="/connect" class="nav-link">Connect</a>
+				</div>
+				<div class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</nav>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Inter', sans-serif;
+		line-height: 1.6;
+		color: #333;
+		background-color: #fff;
+	}
+
+	/* Navigation Styles */
+	.navbar {
+		background: #fff !important;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+		position: sticky !important;
+		top: 0 !important;
+		z-index: 1000 !important;
+		width: 100% !important;
+		display: block !important;
+	}
+
+	.nav-container {
+		max-width: 1200px !important;
+		margin: 0 auto !important;
+		padding: 0 2rem !important;
+		display: flex !important;
+		justify-content: space-between !important;
+		align-items: center !important;
+		height: 70px !important;
+	}
+
+	.nav-logo {
+		font-size: 1.8rem !important;
+		font-weight: 700 !important;
+		color: #2563eb !important;
+		text-decoration: none !important;
+	}
+
+	.nav-menu {
+		display: flex !important;
+		gap: 2rem !important;
+		list-style: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.nav-link {
+		color: #374151 !important;
+		text-decoration: none !important;
+		font-weight: 500 !important;
+		transition: color 0.3s ease !important;
+		padding: 0.5rem 1rem !important;
+		border-radius: 4px !important;
+		display: inline-block !important;
+	}
+
+	.nav-link:hover {
+		color: #2563eb !important;
+		background-color: #f1f5f9 !important;
+	}
+
+	.hamburger {
+		display: none;
+		flex-direction: column;
+		cursor: pointer;
+	}
+
+	.hamburger span {
+		width: 25px;
+		height: 3px;
+		background: #374151;
+		margin: 3px 0;
+		transition: 0.3s;
+	}
+
+	main {
+		min-height: calc(100vh - 70px);
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.nav-container {
+			padding: 0 1rem;
+		}
+
+		.nav-menu {
+			position: fixed;
+			top: 70px;
+			left: -100%;
+			width: 100%;
+			height: calc(100vh - 70px);
+			background: #fff;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			padding-top: 2rem;
+			transition: left 0.3s ease;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+
+		.nav-menu.active {
+			left: 0;
+		}
+
+		.hamburger {
+			display: flex;
+		}
+
+		.nav-link {
+			font-size: 1.2rem;
+			margin: 1rem 0;
+		}
+	}
+</style>
+
+<script>
+	// Mobile menu toggle
+	document.addEventListener('DOMContentLoaded', function() {
+		const hamburger = document.querySelector('.hamburger');
+		const navMenu = document.querySelector('.nav-menu');
+
+		if (hamburger && navMenu) {
+			hamburger.addEventListener('click', function() {
+				navMenu.classList.toggle('active');
+			});
+
+			// Close menu when clicking on a link
+			const navLinks = document.querySelectorAll('.nav-link');
+			navLinks.forEach(link => {
+				link.addEventListener('click', () => {
+					navMenu.classList.remove('active');
+				});
+			});
+		}
+	});
+</script>

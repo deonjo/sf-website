@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Klesis Christian Fellowship">
+	<section class="hero">
+		<div class="container">
+			<h1>Welcome to Klesis</h1>
+			<p class="hero-subtitle">We're glad you're here!</p>
+			<a href="/connect" class="cta-button">I'M NEW!</a>
+		</div>
+	</section>
+
+	<section class="instagram-section">
+		<div class="container">
+			<h2>Follow us on Instagram</h2>
+			<a href="https://www.instagram.com/klesis.sanfrancisco/" class="instagram-link" target="_blank" rel="noopener noreferrer">
+				@klesis.sanfrancisco
+			</a>
+		</div>
+	</section>
+
+	<section class="about-section">
+		<div class="container">
+			<h3>What is Klesis?</h3>
+			<p>
+				Klesis is a Greek word which means "divine invitation." College is full of invitations, 
+				but this is a special one. So whether you're a Christian who wants to grow in your faith, 
+				or just curious about what Christians believe, we invite you to join us!
+			</p>
+		</div>
+	</section>
+
+	<section class="events-section">
+		<div class="container">
+			<h2>Upcoming Events</h2>
+			<p>Add our calendar to keep up with our latest events</p>
+			<div class="calendar-placeholder">
+				<p>📅 Calendar integration coming soon</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="videos-section">
+		<div class="container">
+			<h3>Fun Videos</h3>
+			<div class="video-placeholder">
+				<p>🎬 Videos coming soon</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="statement-section">
+		<div class="container">
+			<a href="/statement-of-faith" class="statement-link">Statement of Faith</a>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	/* Hero Section */
+	.hero {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		padding: 6rem 0;
+		text-align: center;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	.hero-subtitle {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: #fff;
+		color: #667eea;
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 1.1rem;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+	}
+
+	/* Instagram Section */
+	.instagram-section {
+		padding: 4rem 0;
+		background: #f8fafc;
+		text-align: center;
+	}
+
+	.instagram-section h2 {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+		color: #1e293b;
+	}
+
+	.instagram-link {
+		color: #e1306c;
+		text-decoration: none;
+		font-size: 1.2rem;
+		font-weight: 500;
+		transition: color 0.3s ease;
+	}
+
+	.instagram-link:hover {
+		color: #c13584;
+	}
+
+	/* About Section */
+	.about-section {
+		padding: 4rem 0;
+		background: white;
+	}
+
+	.about-section h3 {
+		font-size: 2rem;
+		color: #1e293b;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.about-section p {
+		font-size: 1.1rem;
+		line-height: 1.8;
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: center;
+		color: #475569;
+	}
+
+	/* Events Section */
+	.events-section {
+		padding: 4rem 0;
+		background: #f1f5f9;
+		text-align: center;
+	}
+
+	.events-section h2 {
+		font-size: 2rem;
+		color: #1e293b;
+		margin-bottom: 1rem;
+	}
+
+	.events-section p {
+		font-size: 1.1rem;
+		color: #64748b;
+		margin-bottom: 2rem;
+	}
+
+	.calendar-placeholder {
+		background: white;
+		padding: 3rem;
+		border-radius: 12px;
+		box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.calendar-placeholder p {
+		color: #94a3b8;
+		font-size: 1rem;
+		margin: 0;
+	}
+
+	/* Videos Section */
+	.videos-section {
+		padding: 4rem 0;
+		background: white;
+		text-align: center;
+	}
+
+	.videos-section h3 {
+		font-size: 2rem;
+		color: #1e293b;
+		margin-bottom: 2rem;
+	}
+
+	.video-placeholder {
+		background: #f8fafc;
+		padding: 3rem;
+		border-radius: 12px;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.video-placeholder p {
+		color: #94a3b8;
+		font-size: 1rem;
+		margin: 0;
+	}
+
+	/* Statement Section */
+	.statement-section {
+		padding: 4rem 0;
+		background: #f8fafc;
+		text-align: center;
+	}
+
+	.statement-link {
+		color: #2563eb;
+		text-decoration: none;
+		font-size: 1.2rem;
+		font-weight: 500;
+		border: 2px solid #2563eb;
+		padding: 1rem 2rem;
+		border-radius: 8px;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
+
+	.statement-link:hover {
+		background: #2563eb;
+		color: white;
+	}
+
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 1rem;
+		}
+
+		.hero {
+			padding: 4rem 0;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero-subtitle {
+			font-size: 1.2rem;
+		}
+
+		.instagram-section,
+		.about-section,
+		.events-section,
+		.videos-section,
+		.statement-section {
+			padding: 3rem 0;
+		}
+
+		.calendar-placeholder,
+		.video-placeholder {
+			padding: 2rem;
+		}
+	}
+</style>
