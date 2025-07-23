@@ -2,89 +2,53 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Connect - Klesis Christian Fellowship">
+<Layout title="Get Connected - Klesis Christian Fellowship">
 	<section class="hero">
 		<div class="container">
-			<h1>Connect with Klesis</h1>
-			<p class="hero-subtitle">We'd love to meet you and answer any questions you might have!</p>
+			<h1>Nice to meet you! 👋</h1>
+			<p class="hero-subtitle">
+				Sign up to receive updates about Klesis events and important announcements!
+			</p>
+			<p class="hero-subtitle">
+				Have a question or comment? Submit your message below and we'll be in touch!
+			</p>
 		</div>
 	</section>
 
-	<section class="connect-section">
+	<section class="form-section">
 		<div class="container">
-			<div class="connect-grid">
-				<div class="connect-card">
-					<h3>🏫 New to Campus?</h3>
-					<p>
-						Whether you're a freshman or transfer student, we'd love to welcome you to the campus community. 
-						Come as you are - no religious background required!
-					</p>
-				</div>
-
-				<div class="connect-card">
-					<h3>🤔 Have Questions?</h3>
-					<p>
-						Curious about Christianity or have questions about faith? We're here to discuss and explore 
-						these important topics together in a welcoming environment.
-					</p>
-				</div>
-
-				<div class="connect-card">
-					<h3>📚 Want to Grow?</h3>
-					<p>
-						Already a Christian looking to deepen your faith? Join our community of believers as we 
-						study Scripture and support each other in our spiritual journey.
-					</p>
-				</div>
+			<div class="form-container">
+				<iframe 
+					src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal" 
+					width="100%" 
+					height="800" 
+					frameborder="0" 
+					marginheight="0" 
+					marginwidth="0"
+					style="border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);"
+				>
+					Loading…
+				</iframe>
 			</div>
 		</div>
 	</section>
 
-	<section class="contact-section">
+	<section class="info-section">
 		<div class="container">
-			<h2>Get in Touch</h2>
-			<div class="contact-grid">
-				<div class="contact-method">
-					<h4>📧 Email Us</h4>
-					<p>Send us a message and we'll get back to you soon!</p>
-					<a href="mailto:contact@klesissf.org" class="contact-link">contact@klesissf.org</a>
-				</div>
-
-				<div class="contact-method">
-					<h4>📱 Follow Us</h4>
-					<p>Stay updated with our latest events and content</p>
-					<a href="https://www.instagram.com/klesis.sanfrancisco/" class="contact-link" target="_blank" rel="noopener noreferrer">
-						@klesis.sanfrancisco
-					</a>
-				</div>
-
-				<div class="contact-method">
-					<h4>⛪ Visit Us</h4>
-					<p>Join us for our weekly gatherings and special events</p>
-					<p class="contact-info">Check our calendar for meeting times and locations</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="first-time-section">
-		<div class="container">
-			<h2>First Time Visitor?</h2>
-			<div class="first-time-content">
+			<div class="info-content">
 				<p>
-					We know visiting a new group can feel intimidating, but we want you to feel completely welcome! 
-					Here's what you can expect when you visit us:
+					Klesis is a Christian fellowship serving college students and young professionals in the San Francisco area. 
+					We gather weekly for worship, Bible study, and fellowship as we grow together in our faith.
 				</p>
-				<ul class="expectations-list">
-					<li>✨ A warm, friendly atmosphere where everyone is welcome</li>
-					<li>🎵 Worship through contemporary Christian music</li>
-					<li>📖 Practical teaching from the Bible that applies to student life</li>
-					<li>🤝 Opportunities to connect with other students</li>
-					<li>🍕 Usually some food or snacks afterward!</li>
-				</ul>
-				<p class="reassurance">
-					No pressure, no judgment - just come as you are and see what we're all about!
-				</p>
+				<div class="quick-links">
+					<h4>Quick Links</h4>
+					<ul>
+						<li><a href="/">About Klesis</a></li>
+						<li><a href="/church">Our Community</a></li>
+						<li><a href="/devotions">Daily Devotions</a></li>
+						<li><a href="/statement-of-faith">Statement of Faith</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -92,7 +56,7 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 	.container {
-		max-width: 1200px;
+		max-width: 800px;
 		margin: 0 auto;
 		padding: 0 2rem;
 	}
@@ -101,160 +65,103 @@ import Layout from '../layouts/Layout.astro';
 	.hero {
 		background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
 		color: white;
-		padding: 5rem 0;
+		padding: 4rem 0;
 		text-align: center;
 	}
 
 	.hero h1 {
-		font-size: 3rem;
+		font-size: 2.8rem;
 		font-weight: 700;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.hero-subtitle {
-		font-size: 1.3rem;
-		opacity: 0.9;
+		font-size: 1.2rem;
+		line-height: 1.6;
+		opacity: 0.95;
+		max-width: 700px;
+		margin: 0 auto 1rem;
+	}
+
+	/* Form Section */
+	.form-section {
+		padding: 4rem 0;
+		background: white;
+	}
+
+	.form-container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 2rem;
+		background: #f8fafc;
+		border-radius: 16px;
+		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+	}
+
+	.form-container iframe {
+		width: 100%;
+		height: 1200px;
+		border: none;
+		border-radius: 12px;
+		background: white;
+	}
+
+	/* Info Section */
+	.info-section {
+		padding: 4rem 0;
+		background: #f9fafb;
+		border-top: 1px solid #e5e7eb;
+	}
+
+	.info-content {
+		text-align: center;
 		max-width: 600px;
 		margin: 0 auto;
 	}
 
-	/* Connect Section */
-	.connect-section {
-		padding: 5rem 0;
-		background: white;
+	.info-content p {
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: #4b5563;
+		margin-bottom: 2rem;
 	}
 
-	.connect-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
-		margin-top: 3rem;
-	}
-
-	.connect-card {
-		background: #f8fafc;
-		padding: 2.5rem;
-		border-radius: 12px;
-		text-align: center;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.connect-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-	}
-
-	.connect-card h3 {
-		font-size: 1.5rem;
-		color: #1e293b;
-		margin-bottom: 1rem;
-	}
-
-	.connect-card p {
-		color: #64748b;
-		line-height: 1.6;
-	}
-
-	/* Contact Section */
-	.contact-section {
-		padding: 5rem 0;
-		background: #f1f5f9;
-	}
-
-	.contact-section h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 3rem;
-	}
-
-	.contact-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-	}
-
-	.contact-method {
+	.quick-links {
 		background: white;
 		padding: 2rem;
 		border-radius: 12px;
-		text-align: center;
 		box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 	}
 
-	.contact-method h4 {
-		font-size: 1.3rem;
-		color: #1e293b;
+	.quick-links h4 {
+		color: #374151;
 		margin-bottom: 1rem;
+		font-size: 1.2rem;
 	}
 
-	.contact-method p {
-		color: #64748b;
-		margin-bottom: 1rem;
+	.quick-links ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 0.5rem;
 	}
 
-	.contact-link {
-		color: #2563eb;
+	.quick-links li {
+		padding: 0.5rem 0;
+	}
+
+	.quick-links a {
+		color: #4f46e5;
 		text-decoration: none;
 		font-weight: 500;
 		transition: color 0.3s ease;
 	}
 
-	.contact-link:hover {
-		color: #1d4ed8;
-	}
-
-	.contact-info {
-		color: #64748b;
-		font-style: italic;
-	}
-
-	/* First Time Section */
-	.first-time-section {
-		padding: 5rem 0;
-		background: white;
-	}
-
-	.first-time-section h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 3rem;
-	}
-
-	.first-time-content {
-		max-width: 800px;
-		margin: 0 auto;
-	}
-
-	.first-time-content p {
-		font-size: 1.1rem;
-		line-height: 1.8;
-		color: #475569;
-		margin-bottom: 2rem;
-	}
-
-	.expectations-list {
-		background: #f8fafc;
-		padding: 2rem;
-		border-radius: 12px;
-		margin: 2rem 0;
-		list-style: none;
-	}
-
-	.expectations-list li {
-		padding: 0.5rem 0;
-		color: #475569;
-		font-size: 1.1rem;
-	}
-
-	.reassurance {
-		background: #dbeafe;
-		padding: 1.5rem;
-		border-radius: 8px;
-		color: #1e40af;
-		font-weight: 500;
-		text-align: center;
+	.quick-links a:hover {
+		color: #7c3aed;
+		text-decoration: underline;
 	}
 
 	/* Mobile Styles */
@@ -264,27 +171,31 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		.hero {
-			padding: 4rem 0;
-		}
-
-		.hero h1 {
-			font-size: 2.5rem;
-		}
-
-		.connect-section,
-		.contact-section,
-		.first-time-section {
 			padding: 3rem 0;
 		}
 
-		.connect-grid,
-		.contact-grid {
-			grid-template-columns: 1fr;
+		.hero h1 {
+			font-size: 2.2rem;
 		}
 
-		.connect-card,
-		.contact-method {
-			padding: 2rem;
+		.hero-subtitle {
+			font-size: 1.1rem;
+		}
+
+		.form-section {
+			padding: 2rem 0;
+		}
+
+		.contact-form {
+			padding: 2rem 1.5rem;
+		}
+
+		.info-section {
+			padding: 3rem 0;
+		}
+
+		.quick-links ul {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
