@@ -16,7 +16,7 @@ const { Content } = await entry.render();
   <section class="blog-post-hero">
     <div class="container">
       <h1>{entry.data.title}</h1>
-      <p>By {entry.data.author} on {entry.data.pubDate}</p>
+      <p>By {entry.data.author} on {new Date(entry.data.pubDate).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
     </div>
   </section>
   <section class="blog-post-content">

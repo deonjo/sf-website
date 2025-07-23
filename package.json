@@ -2,6 +2,9 @@
   "name": "fast-force",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -11,8 +14,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.2",
-    "astro-content": "^0.0.0-alpha.13"
+    "astro": "^5.12.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
