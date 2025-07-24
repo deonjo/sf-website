@@ -4,19 +4,19 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Get Connected - SF Acts 2 College">
 	<section class="hero">
+		<img src="/header-banners/Connect Banner.jpg" alt="Connect with SF Acts 2 College" class="hero-image">
+		<div class="hero-overlay"></div>
 		<div class="container">
 			<h1>Nice to meet you! 👋</h1>
 			<p class="hero-subtitle">
-				Sign up to receive updates about SF Acts 2 College events and important announcements!
-			</p>
-			<p class="hero-subtitle">
-				Have a question or comment? Submit your message below and we'll be in touch!
+				Sign up for updates, or send us a question or comment below.
 			</p>
 		</div>
 	</section>
 
 	<section class="form-section">
 		<div class="container">
+			<div class="form-container">
 				<iframe 
 					src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal" 
 					width="100%" 
@@ -28,6 +28,7 @@ import Layout from '../layouts/Layout.astro';
 				>
 					Loading…
 				</iframe>
+			</div>
 		</div>
 	</section>
 
@@ -52,10 +53,31 @@ import Layout from '../layouts/Layout.astro';
 
 	/* Hero Section */
 	.hero {
-		background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+		position: relative;
 		color: white;
-		padding: 4rem 0;
+		padding: 6rem 0;
 		text-align: center;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: -2;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: -1;
 	}
 
 	.hero h1 {
