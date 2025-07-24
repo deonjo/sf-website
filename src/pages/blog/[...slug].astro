@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
-<Layout title={entry.data.title}>
+<Layout title={`${entry.data.title} - SF Acts 2 College`}>
   <section class="blog-post-hero">
     <div class="container">
       <h1>{entry.data.title}</h1>
