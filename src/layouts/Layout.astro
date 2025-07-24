@@ -4,7 +4,7 @@ export interface Props {
 	description?: string;
 }
 
-const { title = 'SF Acts 2 College', description = "SF Acts 2 College is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!" } = Astro.props;
+const { title = 'Acts College SF', description = "Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!" } = Astro.props;
 ---
 
 <!doctype html>
@@ -31,12 +31,12 @@ const { title = 'SF Acts 2 College', description = "SF Acts 2 College is a Chris
 		<meta property="twitter:image" content={new URL('/social-preview.jpg', Astro.url)} />
 
 		<title>{title}</title>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<nav class="navbar">
 			<div class="nav-container">
-				<a href="/" class="nav-logo">SF Acts 2 College</a>
+				<a href="/" class="nav-logo"><img src="/favicon.png" alt="Acts College SF Logo" /> Acts College SF</a>
 				<div class="nav-menu">
 					<a href="/" class="nav-link">Home</a>
 					<a href="/church" class="nav-link">Church</a>
@@ -64,7 +64,7 @@ const { title = 'SF Acts 2 College', description = "SF Acts 2 College is a Chris
 	}
 
 	body {
-		font-family: 'Inter', sans-serif;
+		font-family: 'Poppins', sans-serif;
 		line-height: 1.6;
 		color: #333;
 		background-color: #fff;
@@ -96,6 +96,11 @@ const { title = 'SF Acts 2 College', description = "SF Acts 2 College is a Chris
 		font-weight: 700 !important;
 		color: #000000 !important;
 		text-decoration: none !important;
+	}
+
+	.nav-logo img {
+		height: 50px;
+		vertical-align: middle;
 	}
 
 	.nav-menu {
