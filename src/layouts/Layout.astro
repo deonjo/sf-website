@@ -32,6 +32,12 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 
 		<title>{title}</title>
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<script type="speculationrules">
+		  {
+		    "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }],
+		    "prefetch": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+		  }
+		</script>
 	</head>
 	<body>
 		<nav class="navbar">
