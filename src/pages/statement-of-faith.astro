@@ -63,23 +63,23 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 	.container {
-		max-width: 1200px;
+		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 2rem;
+		padding: 0 var(--spacing-md);
 	}
 
 	/* Hero Section */
 	.hero {
-		background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+		background: linear-gradient(135deg, var(--color-link) 0%, #1d4ed8 100%);
 		color: white;
-		padding: 5rem 0;
+		padding: var(--space-xl) 0;
 		text-align: center;
 	}
 
 	.hero h1 {
 		font-size: 3rem;
 		font-weight: 700;
-		margin-bottom: 1rem;
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.hero-subtitle {
@@ -91,31 +91,31 @@ import Layout from '../layouts/Layout.astro';
 
 	/* Intro Section */
 	.intro-section {
-		padding: 4rem 0;
-		background: white;
+		padding: var(--space-lg) 0;
+		background: var(--color-bg);
 	}
 
 	.intro-content p {
-		font-size: 1.2rem;
+		font-size: var(--font-medium);
 		line-height: 1.8;
-		color: #475569;
-		max-width: 900px;
+		color: var(--color-text-lighter);
+		max-width: var(--content-max);
 		margin: 0 auto;
 		text-align: center;
 	}
 
 	/* Content Section */
 	.content-section {
-		padding: 3rem 0;
-		background: white;
+		padding: var(--space-lg) 0;
+		background: var(--color-bg);
 	}
 
 	.content-section h4 {
-		font-size: 1.2rem;
+		font-size: var(--font-medium);
 		font-weight: bold;
-		color: #1e293b;
-		margin-top: 2rem;
-		margin-bottom: 0.5rem;
+		color: var(--color-heading);
+		margin-top: var(--spacing-md);
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.content-section h4:first-of-type {
@@ -123,29 +123,29 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.content-section p {
-		color: #475569;
+		color: var(--color-text-lighter);
 		line-height: 1.6;
 		margin-bottom: 1.5rem;
-		font-size: 1rem;
+		font-size: var(--font-small);
 	}
 
 	.content-section a {
-		color: #2563eb;
+		color: var(--color-link);
 		text-decoration: underline;
 	}
 
 	.content-section a:hover {
-		color: #1d4ed8;
+		color: var(--color-link-hover);
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.container {
-			padding: 0 1rem;
+			padding: 0 var(--spacing-sm);
 		}
 
 		.hero {
-			padding: 4rem 0;
+			padding: var(--space-lg) 0;
 		}
 
 		.hero h1 {
@@ -157,7 +157,7 @@ import Layout from '../layouts/Layout.astro';
 		.unity-section,
 		.practical-section,
 		.questions-section {
-			padding: 3rem 0;
+			padding: var(--space-lg) 0;
 		}
 
 		.beliefs-grid,
