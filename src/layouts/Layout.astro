@@ -79,6 +79,22 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 					<p>Email: klesis.sanfrancisco@gmail.com</p>
 					<p>San Francisco, CA</p>
 				</div>
+			<div class="footer-section" aria-label="Affiliations">
+				<h3>Our Affiliations</h3>
+
+				<div class="affiliations-logos">
+					<a class="affiliation-link" href="https://www.acts2.network/" target="_blank" rel="noopener noreferrer" aria-label="Acts 2 Network">
+						<img src="/footer/Acts2+Network.webp" alt="Acts 2 Network" loading="lazy" decoding="async" />
+					</a>
+					<a class="affiliation-link" href="https://www.actscollege.church/" target="_blank" rel="noopener noreferrer" aria-label="Acts2 College">
+						<img src="/footer/Acts2+College.webp" alt="Acts2 College" loading="lazy" decoding="async" />
+					</a>
+					<a class="affiliation-link" href="https://www.namb.net/send-network/" target="_blank" rel="noopener noreferrer" aria-label="Send Network (NAMB)">
+						<img src="/footer/SEND+Network.webp" alt="Send Network" loading="lazy" decoding="async" />
+					</a>
+				</div>
+				<p class="affiliations-description">Acts College Church is a part of Acts2 College, the Acts2 Network, and the Send Network.</p>
+			</div>
 			</div>
 			<div class="footer-bottom">
 				<p>&copy; {new Date().getFullYear()} Acts College SF. All rights reserved.</p>
@@ -88,6 +104,32 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 </html>
 
 <style is:global>
+	:root {
+		/* Color variables */
+		--color-primary: #38b6ff;
+		--color-primary-dark: #2d92cc;
+		--color-text: #333;
+		--color-text-light: #374151;
+		--color-text-lighter: #475569;
+		--color-link: #2563eb;
+		--color-link-hover: #60a5fa;
+		--color-bg: #fff;
+		--color-bg-alt: #f1f5f9;
+		--color-footer-bg: #1f2937;
+		--color-footer-text: #f9fafb;
+		--color-footer-text-light: #d1d5db;
+		--color-footer-border: #374151;
+		--color-footer-copyright: #9ca3af;
+
+		/* Spacing variables */
+		--container-max-width: 1200px;
+		--nav-height: 70px;
+		--spacing-xs: 0.5rem;
+		--spacing-sm: 1rem;
+		--spacing-md: 2rem;
+		--spacing-lg: 3rem;
+	}
+
 	* {
 		margin: 0;
 		padding: 0;
@@ -97,39 +139,38 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 	body {
 		font-family: 'Poppins', sans-serif;
 		line-height: 1.6;
-		color: #333;
-		background-color: #fff;
+		color: var(--color-text);
+		background-color: var(--color-bg);
 	}
 
 	/* Navigation Styles */
 	.navbar {
-		background: #fff !important;
-		box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
-		position: sticky !important;
-		top: 0 !important;
-		z-index: 1000 !important;
-		width: 100% !important;
-		display: block !important;
+		background: var(--color-bg);
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		width: 100%;
 	}
 
 	.nav-container {
-		max-width: 1200px !important;
-		margin: 0 auto !important;
-		padding: 0 2rem !important;
-		display: flex !important;
-		justify-content: space-between !important;
-		align-items: center !important;
-		height: 70px !important;
+		max-width: var(--container-max-width);
+		margin: 0 auto;
+		padding: 0 var(--spacing-md);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: var(--nav-height);
 	}
 
 	.nav-logo {
-		font-size: 1.8rem !important;
-		font-weight: 700 !important;
-		color: #000000 !important;
-		text-decoration: none !important;
-		display: flex !important;
-		align-items: center !important;
-		gap: 0.5rem !important;
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: black;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xs);
 	}
 
 	.nav-logo img {
@@ -138,26 +179,26 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 	}
 
 	.nav-menu {
-		display: flex !important;
-		gap: 2rem !important;
-		list-style: none !important;
-		margin: 0 !important;
-		padding: 0 !important;
+		display: flex;
+		gap: var(--spacing-md);
+		list-style: none;
+		margin: 0;
+		padding: 0;
 	}
 
 	.nav-link {
-		color: #374151 !important;
-		text-decoration: none !important;
-		font-weight: 500 !important;
-		transition: color 0.3s ease !important;
-		padding: 0.5rem 1rem !important;
-		border-radius: 4px !important;
-		display: inline-block !important;
+		color: var(--color-text-light);
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-radius: 4px;
+		display: inline-block;
 	}
 
 	.nav-link:hover {
-		color: #2563eb !important;
-		background-color: #f1f5f9 !important;
+		color: var(--color-link);
+		background-color: var(--color-bg-alt);
 	}
 
 	.hamburger {
@@ -169,87 +210,105 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 	.hamburger span {
 		width: 25px;
 		height: 3px;
-		background: #374151;
+		background: var(--color-text-light);
 		margin: 3px 0;
 		transition: 0.3s;
 	}
 
 	main {
-		min-height: calc(100vh - 70px);
+		min-height: calc(100vh - var(--nav-height));
 	}
 
 	/* Footer Styles */
 	.footer {
-		background: #1f2937 !important;
-		color: #fff !important;
-		padding: 3rem 0 1rem !important;
-		margin-top: auto !important;
+		background: var(--color-footer-bg);
+		color: white;
+		padding: var(--spacing-lg) 0 var(--spacing-sm);
+		margin-top: auto;
 	}
 
 	.footer-container {
-		max-width: 1200px !important;
-		margin: 0 auto !important;
-		padding: 0 2rem !important;
-		display: grid !important;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-		gap: 2rem !important;
+		max-width: var(--container-max-width);
+		margin: 0 auto;
+		padding: 0 var(--spacing-md);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: var(--spacing-md);
 	}
 
 	.footer-section h3 {
-		font-size: 1.2rem !important;
-		margin-bottom: 1rem !important;
-		color: #f9fafb !important;
+		font-size: 1.2rem;
+		margin-bottom: var(--spacing-sm);
+		color: var(--color-footer-text);
 	}
 
 	.footer-section p {
-		color: #d1d5db !important;
-		margin-bottom: 0.5rem !important;
+		color: var(--color-footer-text-light);
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.footer-section ul {
-		list-style: none !important;
-		padding: 0 !important;
+		list-style: none;
+		padding: 0;
 	}
 
 	.footer-section ul li {
-		margin-bottom: 0.5rem !important;
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.footer-section a {
-		color: #d1d5db !important;
-		text-decoration: none !important;
-		transition: color 0.3s ease !important;
+		color: var(--color-footer-text-light);
+		text-decoration: none;
+		transition: color 0.3s ease;
 	}
 
 	.footer-section a:hover {
-		color: #60a5fa !important;
+		color: var(--color-link-hover);
+	}
+
+	/* Affiliation Styles */
+	.affiliations-logos {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+		margin: var(--spacing-sm) 0;
+	}
+
+	.affiliations-logos img {
+		height: 30px;
+		max-width: 160px;
+	}
+
+	.affiliations-description {
+		font-size: 0.9rem;
+		line-height: 1.4;
 	}
 
 	.footer-bottom {
-		border-top: 1px solid #374151 !important;
-		margin-top: 2rem !important;
-		padding-top: 1rem !important;
-		text-align: center !important;
-		color: #9ca3af !important;
+		border-top: 1px solid var(--color-footer-border);
+		margin-top: var(--spacing-md);
+		padding-top: var(--spacing-sm);
+		text-align: center;
+		color: var(--color-footer-copyright);
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.nav-container {
-			padding: 0 1rem;
+			padding: 0 var(--spacing-sm);
 		}
 
 		.nav-menu {
 			position: fixed;
-			top: 70px;
+			top: var(--nav-height);
 			left: -100%;
 			width: 100%;
-			height: calc(100vh - 70px);
-			background: #fff;
+			height: calc(100vh - var(--nav-height));
+			background: var(--color-bg);
 			flex-direction: column;
 			justify-content: flex-start;
 			align-items: center;
-			padding-top: 2rem;
+			padding-top: var(--spacing-md);
 			transition: left 0.3s ease;
 			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 		}
@@ -264,13 +323,25 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 
 		.nav-link {
 			font-size: 1.2rem;
-			margin: 1rem 0;
+			margin: var(--spacing-sm) 0;
 		}
 
 		.footer-container {
-			padding: 0 1rem;
+			padding: 0 var(--spacing-sm);
 			grid-template-columns: 1fr;
 			gap: 1.5rem;
+		}
+
+		.affiliations-logos {
+			justify-content: center;
+		}
+
+		.affiliations-logos img {
+			height: 20px;
+		}
+
+		.affiliations-description {
+			text-align: center;
 		}
 	}
 </style>
