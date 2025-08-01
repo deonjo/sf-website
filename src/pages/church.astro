@@ -28,7 +28,7 @@ import Button from '../components/Button.astro';
 							</div>
 							<div class="detail-item">
 								<span class="detail-label">Start Time</span>
-								<span class="detail-value">12:00 PM</span>
+								<span class="detail-value">Sundays @ 12:00 PM</span>
 							</div>
 							<div class="detail-item">
 								<span class="detail-label">Address</span>
@@ -76,8 +76,8 @@ import Button from '../components/Button.astro';
                                     <span class="detail-value">USF - Memorial Gym Lot</span>
                                 </div>
                                 <div class="detail-item">
-                                    <span class="detail-label">Time</span>
-                                    <span class="detail-value">11:00 AM</span>
+                                    <span class="detail-label">Pickup Time</span>
+                                    <span class="detail-value">Sundays @ 11:00 AM</span>
                                 </div>
                             </div>
                             <div class="map-embed">
@@ -102,8 +102,8 @@ import Button from '../components/Button.astro';
                                     <span class="detail-value">SFSU - Mashouf Wellness Center</span>
                                 </div>
                                 <div class="detail-item">
-                                    <span class="detail-label">Time</span>
-                                    <span class="detail-value">11:00 AM</span>
+                                    <span class="detail-label">Pickup Time</span>
+                                    <span class="detail-value">Sundays @ 11:00 AM</span>
                                 </div>
                             </div>
                             <div class="map-embed">
@@ -137,17 +137,63 @@ import Button from '../components/Button.astro';
 </Layout>
 
 <style>
+	/* Variables */
+	:root {
+		/* Colors from the main Layout */
+		--color-primary: #38b6ff;
+		--color-primary-dark: #2d92cc;
+		--color-text: #333;
+		--color-text-light: #374151;
+		--color-text-lighter: #475569;
+		--color-heading: #1e293b;
+		--color-bg: #fff;
+		--color-bg-alt: #f8fafc;
+		--color-border: #e2e8f0;
+		
+		/* Layout */
+		--container-width: 1200px;
+		--content-max: 900px;
+		--card-max: 700px;
+		
+		/* Spacing */
+		--space-xs: 0.5rem;
+		--space-sm: 1rem;
+		--space-md: 2rem;
+		--space-lg: 3rem;
+		--space-xl: 5rem;
+		
+		/* Typography */
+		--font-small: 1.1rem;
+		--font-medium: 1.2rem;
+		--font-large: 2.2rem;
+		--font-xlarge: 2.5rem;
+		
+		/* Effects */
+		--shadow: 0 10px 25px rgba(0,0,0,0.08);
+		--radius: 16px;
+		--overlay: rgba(0, 0, 0, 0.5);
+	}
+
+	/* Base Styles */
 	.container {
-		max-width: 1200px;
+		max-width: var(--container-width);
 		margin: 0 auto;
-		padding: 0 2rem;
+		padding: 0 var(--space-md);
+	}
+
+	/* Common Section Styles */
+	h2 {
+		font-size: var(--font-xlarge);
+		color: var(--color-heading);
+		margin-bottom: var(--space-lg);
+		text-align: center;
 	}
 
 	/* Hero Section */
 	.hero {
 		position: relative;
 		color: white;
-		padding: 8rem 0;
+		padding: var(--space-xl) 0;
 		text-align: center;
 		overflow: hidden;
 	}
@@ -168,49 +214,37 @@ import Button from '../components/Button.astro';
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: var(--overlay);
 		z-index: -1;
 	}
 
 	.hero h1 {
-		font-size: 2.8rem;
+		font-size: var(--font-large);
 		font-weight: 700;
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--space-md);
 	}
 
 	.hero-subtitle {
-		font-size: 1.2rem;
+		font-size: var(--font-medium);
 		line-height: 1.6;
 		opacity: 0.95;
-		max-width: 700px;
-		margin: 0 auto 1rem;
+		max-width: var(--card-max);
+		margin: 0 auto var(--space-sm);
 	}
 
-	/* About Church Section */
-	.about-church-section {
-		padding: 5rem 0;
-		background: white;
-	}
-
-	.about-church-section h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 3rem;
-	}
-
+	/* Map Card Styles (used in both church and pickup sections) */
 	.map-card-container {
 		display: flex;
 		justify-content: center;
-		margin: 0 auto 2rem auto;
-		max-width: 700px;
+		margin: 0 auto var(--space-md) auto;
+		max-width: var(--card-max);
 	}
 
 	.map-card {
-		background: #f8fafc;
-		border-radius: 16px;
-		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-		border: 1px solid #e2e8f0;
+		background: var(--color-bg-alt);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow);
+		border: 1px solid var(--color-border);
 		overflow: hidden;
 		width: 100%;
 		height: 400px;
@@ -224,8 +258,8 @@ import Button from '../components/Button.astro';
 	}
 
 	.service-details {
-		padding: 1.5rem 1.5rem 0 1.5rem;
-		border-bottom: 1px solid #e2e8f0;
+		padding: var(--space-md) var(--space-md) 0;
+		border-bottom: 1px solid var(--color-border);
 		flex-shrink: 0;
 	}
 
@@ -236,29 +270,25 @@ import Button from '../components/Button.astro';
 		padding: 0;
 	}
 
-	.detail-item:last-child {
-		border-bottom: none;
-	}
-
 	.detail-item .detail-value {
-		padding-bottom: 0.5rem;
+		padding-bottom: var(--space-xs);
 	}
 
 	.detail-label {
 		font-weight: 600;
-		color: #1e293b;
-		font-size: 1.1rem;
+		color: var(--color-heading);
+		font-size: var(--font-small);
 	}
 
 	.detail-value {
-		color: #475569;
-		font-size: 1.1rem;
+		color: var(--color-text-lighter);
+		font-size: var(--font-small);
 		text-align: right;
 	}
 
 	.map-embed {
 		position: relative;
-		padding-top: 56.25%;
+		padding-top: 56.25%; /* 16:9 aspect ratio */
 		height: 0;
 		overflow: hidden;
 		flex-grow: 1;
@@ -271,44 +301,42 @@ import Button from '../components/Button.astro';
 		width: 100%;
 		height: 100%;
 		border: 0;
-		border-radius: 0 0 16px 16px;
-		background: white;
+		border-radius: 0 0 var(--radius) var(--radius);
+		background: var(--color-bg);
+	}
+
+	/* Section Specific Styles */
+	.about-church-section {
+		padding: var(--space-xl) 0;
+		background: var(--color-bg);
 	}
 
 	.belief-content p {
-		font-size: 1.2rem;
+		font-size: var(--font-medium);
 		line-height: 1.8;
-		color: #475569;
-		max-width: 900px;
-		margin: 0 auto 2rem auto;
+		color: var(--color-text-lighter);
+		max-width: var(--content-max);
+		margin: 0 auto var(--space-md);
 		text-align: center;
 	}
 
-	/* Pickup Section */
 	.pickup-section {
-		padding: 1.5rem 0;
-		background: white;
-	}
-
-	.pickup-section h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 2rem;
+		padding: var(--space-lg) 0;
+		background: var(--color-bg);
 	}
 
 	.pickup-description {
-		font-size: 1.2rem;
-		color: #475569;
-		max-width: 700px;
-		margin: 0 auto 3rem auto;
+		font-size: var(--font-medium);
+		color: var(--color-text-lighter);
+		max-width: var(--card-max);
+		margin: 0 auto var(--space-lg);
 		line-height: 1.7;
 		text-align: center;
 	}
 
 	.pickup-maps-container {
 		display: flex;
-		gap: 2rem;
+		gap: var(--space-md);
 		justify-content: center;
 		flex-wrap: wrap;
 	}
@@ -319,30 +347,23 @@ import Button from '../components/Button.astro';
 		max-width: 500px;
 	}
 
-	/* Join Section */
 	.join-section {
-		padding: 5rem 0;
-		background: #f8fafc;
+		padding: var(--space-xl) 0;
+		background: var(--color-bg-alt);
 		text-align: center;
 	}
 
-	.join-section h2 {
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 2rem;
-	}
-
 	.join-text {
-		font-size: 1.2rem;
-		color: #475569;
-		max-width: 700px;
-		margin: 0 auto 3rem auto;
+		font-size: var(--font-medium);
+		color: var(--color-text-lighter);
+		max-width: var(--card-max);
+		margin: 0 auto var(--space-lg);
 		line-height: 1.7;
 	}
 
 	.join-actions {
 		display: flex;
-		gap: 1rem;
+		gap: var(--space-sm);
 		justify-content: center;
 		flex-wrap: wrap;
 	}
@@ -350,26 +371,25 @@ import Button from '../components/Button.astro';
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.container {
-			padding: 0 1rem;
+			padding: 0 var(--space-sm);
 		}
 
 		.hero {
-			padding: 3rem 0;
+			padding: var(--space-lg) 0;
 		}
 
 		.hero h1 {
-			font-size: 2.2rem;
+			font-size: 2rem;
 		}
 
 		.hero-subtitle {
-			font-size: 1.1rem;
+			font-size: 1rem;
 		}
 
 		.about-church-section,
 		.pickup-section,
-		.map-section,
 		.join-section {
-			padding: 1.5rem 0;
+			padding: var(--space-md) 0;
 		}
 
 		.map-card-container {
@@ -382,13 +402,13 @@ import Button from '../components/Button.astro';
 		}
 
 		.service-details {
-			padding: 1rem 1rem 0 1rem;
+			padding: var(--space-sm) var(--space-sm) 0;
 		}
 
 		.detail-item {
 			flex-direction: column;
 			align-items: flex-start;
-			gap: 0.5rem;
+			gap: var(--space-xs);
 		}
 
 		.detail-value {
@@ -398,14 +418,11 @@ import Button from '../components/Button.astro';
 		.join-actions {
 			flex-direction: column;
 			align-items: center;
+			gap: var(--space-md);
 		}
 
 		.pickup-maps-container {
 			flex-direction: column;
-		}
-
-		.pickup-location {
-			margin-bottom: 2rem;
 		}
 	}
 </style>

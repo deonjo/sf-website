@@ -45,17 +45,59 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+	/* Variables */
+	:root {
+		/* Colors from the main Layout */
+		--color-primary: #38b6ff;
+		--color-primary-dark: #2d92cc;
+		--color-text: #333;
+		--color-text-light: #374151;
+		--color-text-lighter: #4b5563;
+		--color-bg: #fff;
+		--color-bg-alt: #f9fafb;
+		--color-border: #e5e7eb;
+		--color-link: #38b6ff; /* Changed to match the button blue */
+		--color-link-hover: #2d92cc;
+		
+		/* Layout */
+		--container-width-small: 800px;
+		--container-width-large: 900px;
+		--content-width: 600px;
+		--form-width: 900px;
+		
+		/* Spacing */
+		--space-xs: 0.5rem;
+		--space-sm: 1rem;
+		--space-md: 2rem;
+		--space-lg: 3rem;
+		--space-xl: 4rem;
+		
+		/* Typography */
+		--font-small: 1.1rem;
+		--font-medium: 1.2rem;
+		--font-large: 2.2rem;
+		--font-xlarge: 2.8rem;
+		
+		/* Effects */
+		--shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+		--shadow: 0 10px 25px rgba(0,0,0,0.08);
+		--radius: 12px;
+		--radius-lg: 16px;
+		--overlay: rgba(0, 0, 0, 0.5);
+	}
+	
+	/* Base Container */
 	.container {
-		max-width: 800px;
+		max-width: var(--container-width-small);
 		margin: 0 auto;
-		padding: 0 2rem;
+		padding: 0 var(--space-md);
 	}
 
 	/* Hero Section */
 	.hero {
 		position: relative;
 		color: white;
-		padding: 8rem 0;
+		padding: var(--space-xl) 0;
 		text-align: center;
 		overflow: hidden;
 	}
@@ -76,75 +118,76 @@ import Layout from '../layouts/Layout.astro';
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: var(--overlay);
 		z-index: -1;
 	}
 
 	.hero h1 {
-		font-size: 2.8rem;
+		font-size: var(--font-xlarge);
 		font-weight: 700;
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--space-md);
 	}
 
 	.hero-subtitle {
-		font-size: 1.2rem;
+		font-size: var(--font-medium);
 		line-height: 1.6;
 		opacity: 0.95;
-		max-width: 700px;
-		margin: 0 auto 1rem;
+		max-width: var(--container-width-small);
+		margin: 0 auto var(--space-sm);
 	}
 
 	/* Form Section */
 	.form-section {
-		padding: 4rem 0;
-		background: white;
+		padding: var(--space-xl) 0;
+		background: var(--color-bg);
 	}
 
 	.form-section .container {
-		max-width: 900px;
+		max-width: var(--form-width);
 		margin: 0 auto;
-		padding: 2rem;
+		padding: var(--space-md);
 	}
 
 	.form-section .container iframe {
 		width: 100%;
-		height: 1500px;
+		height: 800px;
 		border: none;
-		border-radius: 12px;
-		background: white;
+		border-radius: var(--radius-lg);
+		background: var(--color-bg);
 	}
 
 	/* Info Section */
 	.info-section {
-		padding: 4rem 0;
-		background: #f9fafb;
-		border-top: 1px solid #e5e7eb;
+		padding: var(--space-xl) 0;
+		background: var(--color-bg-alt);
+		border-top: 1px solid var(--color-border);
 	}
 
 	.info-content {
 		text-align: center;
-		max-width: 600px;
+		max-width: var(--content-width);
 		margin: 0 auto;
 	}
 
 	.info-content p {
-		font-size: 1.1rem;
+		font-size: var(--font-small);
 		line-height: 1.7;
-		color: #4b5563;
-		margin-bottom: 2rem;
+		color: var(--color-text-lighter);
+		margin-bottom: var(--space-md);
 	}
 
+	/* Quick Links Section - preserved but not currently used on page */
 	.quick-links {
-		background: white;
-		padding: 2rem;
-		border-radius: 12px;
-		box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+		background: var(--color-bg);
+		padding: var(--space-md);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow-sm);
 	}
 
 	.quick-links h4 {
-		color: #374151;
-		margin-bottom: 1rem;
-		font-size: 1.2rem;
+		color: var(--color-text-light);
+		margin-bottom: var(--space-sm);
+		font-size: var(--font-medium);
 	}
 
 	.quick-links ul {
@@ -153,53 +196,50 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 0.5rem;
+		gap: var(--space-xs);
 	}
 
 	.quick-links li {
-		padding: 0.5rem 0;
+		padding: var(--space-xs) 0;
 	}
 
 	.quick-links a {
-		color: #4f46e5;
+		color: var(--color-link);
 		text-decoration: none;
 		font-weight: 500;
 		transition: color 0.3s ease;
 	}
 
 	.quick-links a:hover {
-		color: #7c3aed;
+		color: var(--color-link-hover);
 		text-decoration: underline;
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.container {
-			padding: 0 1rem;
+			padding: 0 var(--space-sm);
 		}
 
 		.hero {
-			padding: 3rem 0;
+			padding: var(--space-lg) 0;
 		}
 
 		.hero h1 {
-			font-size: 2.2rem;
+			font-size: var(--font-large);
 		}
 
 		.hero-subtitle {
-			font-size: 1.1rem;
+			font-size: var(--font-small);
 		}
 
-		.form-section {
-			padding: 2rem 0;
-		}
-
-		.contact-form {
-			padding: 2rem 1.5rem;
-		}
-
+		.form-section,
 		.info-section {
-			padding: 3rem 0;
+			padding: var(--space-md) 0;
+		}
+
+		.form-section .container iframe {
+			height: 900px; /* Slightly taller on mobile for better form display */
 		}
 
 		.quick-links ul {
