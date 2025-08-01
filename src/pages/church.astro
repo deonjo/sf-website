@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
 ---
 
 <Layout title="Church - Acts College SF">
@@ -128,8 +129,8 @@ import Layout from '../layouts/Layout.astro';
 				We'd love to have you join us for our next service.
 			</p>
 			<div class="join-actions">
-				<a href="/connect" class="primary-button">Get Connected</a>
-				<a href="/statement-of-faith" class="secondary-button">Our Beliefs</a>
+				<Button href="/connect" variant="primary">Get Connected</Button>
+				<Button href="/statement-of-faith" variant="outline">Our Beliefs</Button>
 			</div>
 		</div>
 	</section>
@@ -346,38 +347,6 @@ import Layout from '../layouts/Layout.astro';
 		flex-wrap: wrap;
 	}
 
-	.primary-button,
-	.secondary-button {
-		padding: 1rem 2rem;
-		border-radius: 8px;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 1.1rem;
-		transition: all 0.3s ease;
-		display: inline-block;
-	}
-
-	.primary-button {
-		background: #059669;
-		color: white;
-	}
-
-	.primary-button:hover {
-		background: #047857;
-		transform: translateY(-2px);
-	}
-
-	.secondary-button {
-		background: white;
-		color: #059669;
-		border: 2px solid #059669;
-	}
-
-	.secondary-button:hover {
-		background: #059669;
-		color: white;
-	}
-
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.container {
@@ -428,12 +397,6 @@ import Layout from '../layouts/Layout.astro';
 		.join-actions {
 			flex-direction: column;
 			align-items: center;
-		}
-
-		.primary-button,
-		.secondary-button {
-			width: 100%;
-			max-width: 300px;
 		}
 
 		.pickup-maps-container {
