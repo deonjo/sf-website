@@ -4,36 +4,56 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Church - Acts College SF">
 	<section class="hero">
+		<img src="/header-banners/unsplash-image-OD9EOzfSOh0.webp" alt="Church Service" class="hero-image">
+		<div class="hero-overlay"></div>
 		<div class="container">
 			<h1>Church Service</h1>
-			<p class="hero-subtitle">Join us for our Sunday services!</p>
+			<p class="hero-subtitle">
+				Join us for our Sunday services!
+			</p>
 		</div>
 	</section>
 
 	<section class="about-church-section">
 		<div class="container">
 			<h2>Sunday Service Information</h2>
+			<div class="map-card-container">
+				<div class="map-card">
+					<div class="map-card-content">
+						<div class="service-details">
+							<div class="detail-item">
+								<span class="detail-label">Location</span>
+								<span class="detail-value">Acts2 Network</span>
+							</div>
+							<div class="detail-item">
+								<span class="detail-label">Start Time</span>
+								<span class="detail-value">12:00 PM</span>
+							</div>
+							<div class="detail-item">
+								<span class="detail-label">Address</span>
+								<span class="detail-value">1275 Harbor Bay Pkwy<br>Alameda, CA 94502</span>
+							</div>
+						</div>
+						<div class="map-embed">
+							<iframe 
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.643479804571!2d-122.23667682286083!3d37.728045514848546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f8515e7d0b39f%3A0x5c2dd0ff685ebc66!2sActs2%20Network!5e0!3m2!1sen!2sus&output=embed&layer=c&cbll=37.728045514848546,-122.23667682286083&cbp=11,0,0,0,0" 
+								allowfullscreen="" 
+								loading="lazy" 
+								referrerpolicy="no-referrer-when-downgrade"
+								style="border:0; min-width: 300px;">
+							</iframe>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="belief-content">
 				<p>
 					Koinonia SFSU and Klesis SF meet together for Sunday service in Alameda. We gather as one community to worship, learn from God's Word, and fellowship together.
 				</p>
+               
                 <p>
                     We offer rides to our Sunday services from both SFSU and USF campus. If you need a ride, please email us at <a href="mailto:klesis.sanfrancisco@gmail.com">klesis.sanfrancisco@gmail.com</a> for more info.
                 </p>
-			</div>
-		</div>
-	</section>
-
-	<section class="map-section">
-		<div class="container">
-			<h2>Church Location</h2>
-			<div class="map-container">
-				<iframe 
-					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.643479804571!2d-122.23667682286083!3d37.728045514848546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f8515e7d0b39f%3A0x5c2dd0ff685ebc66!2sActs2%20Network!5e0!3m2!1sen!2sus!4v1753328538209!5m2!1sen!2sus" 
-					allowfullscreen="" 
-					loading="lazy" 
-					referrerpolicy="no-referrer-when-downgrade">
-				</iframe>
 			</div>
 		</div>
 	</section>
@@ -46,33 +66,55 @@ import Layout from '../layouts/Layout.astro';
             </p>
             
             <div class="pickup-maps-container">
-                <div class="pickup-location">
-                    <h3>Memorial Gym Lot @ 11am Sundays</h3>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380.24571861678874!2d-122.44931141390155!3d37.77685077351459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085874c83ad01b3%3A0xe0e1db7e15fb4ca5!2sMemorial%20Gym%20Lot%2C%20San%20Francisco%2C%20CA%2094117!5e0!3m2!1sen!2sus!4v1753500482923!5m2!1sen!2sus" 
-                            width="600" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                <div class="map-card-container">
+                    <div class="map-card">
+                        <div class="map-card-content">
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Location</span>
+                                    <span class="detail-value">Memorial Gym Lot</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Time</span>
+                                    <span class="detail-value">11:00 AM</span>
+                                </div>
+                            </div>
+                            <div class="map-embed">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380.24571861678874!2d-122.44931141390155!3d37.77685077351459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085874c83ad01b3%3A0xe0e1db7e15fb4ca5!2sMemorial%20Gym%20Lot%2C%20San%20Francisco%2C%20CA%2094117!5e0!3m2!1sen!2sus&output=embed&layer=c&cbll=37.77685077351459,-122.44931141390155&cbp=11,0,0,0,0" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    style="border:0; min-width: 300px;">
+                                </iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="pickup-location">
-                    <h3>Mashouf Wellness Center @ 11am Sundays</h3>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.8673401146884!2d-122.48674162286065!3d37.72279161515065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7daf7158d19b%3A0x86a26e2b053dbeb7!2sMashouf%20Wellness%20Center!5e0!3m2!1sen!2sus!4v1753500588481!5m2!1sen!2sus" 
-                            width="600" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                <div class="map-card-container">
+                    <div class="map-card">
+                        <div class="map-card-content">
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Location</span>
+                                    <span class="detail-value">Mashouf Wellness Center</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Time</span>
+                                    <span class="detail-value">11:00 AM</span>
+                                </div>
+                            </div>
+                            <div class="map-embed">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.8673401146884!2d-122.48674162286065!3d37.72279161515065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7daf7158d19b%3A0x86a26e2b053dbeb7!2sMashouf%20Wellness%20Center!5e0!3m2!1sen!2sus&output=embed&layer=c&cbll=37.72279161515065,-122.48674162286065&cbp=11,0,0,0,0" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    style="border:0; min-width: 300px;">
+                                </iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,23 +144,45 @@ import Layout from '../layouts/Layout.astro';
 
 	/* Hero Section */
 	.hero {
-		background: linear-gradient(135deg, #059669 0%, #047857 100%);
+		position: relative;
 		color: white;
-		padding: 5rem 0;
+		padding: 8rem 0;
 		text-align: center;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: -2;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: -1;
 	}
 
 	.hero h1 {
-		font-size: 3rem;
+		font-size: 2.8rem;
 		font-weight: 700;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.hero-subtitle {
-		font-size: 1.3rem;
-		opacity: 0.9;
-		max-width: 600px;
-		margin: 0 auto;
+		font-size: 1.2rem;
+		line-height: 1.6;
+		opacity: 0.95;
+		max-width: 700px;
+		margin: 0 auto 1rem;
 	}
 
 	/* About Church Section */
@@ -134,45 +198,89 @@ import Layout from '../layouts/Layout.astro';
 		margin-bottom: 3rem;
 	}
 
-	.belief-content p {
-		font-size: 1.2rem;
-		line-height: 1.8;
-		color: #475569;
-		max-width: 900px;
-		margin: 0 auto 1rem auto;
-		text-align: center;
+	.map-card-container {
+		display: flex;
+		justify-content: center;
+		margin: 0 auto 2rem auto;
+		max-width: 700px;
 	}
 
-	/* Map Section */
-	.map-section {
-		padding: 0 0 5rem 0;
-		background: white;
-	}
-
-	.map-section h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: #1e293b;
-		margin-bottom: 3rem;
-	}
-
-	.map-container {
-		position: relative;
+	.map-card {
+		background: #f8fafc;
+		border-radius: 16px;
+		box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+		border: 1px solid #e2e8f0;
 		overflow: hidden;
-		padding-top: 35%; /* 16:9 Aspect Ratio */
-		border-radius: 12px;
-		box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-		max-width: 900px;
-		margin: 0 auto;
+		width: 100%;
+		height: 400px;
+		max-width: 600px;
 	}
 
-	.map-container iframe {
+	.map-card-content {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.service-details {
+		padding: 1.5rem 1.5rem 0 1.5rem;
+		border-bottom: 1px solid #e2e8f0;
+		flex-shrink: 0;
+	}
+
+	.detail-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0;
+	}
+
+	.detail-item:last-child {
+		border-bottom: none;
+	}
+
+	.detail-item .detail-value {
+		padding-bottom: 0.5rem;
+	}
+
+	.detail-label {
+		font-weight: 600;
+		color: #1e293b;
+		font-size: 1.1rem;
+	}
+
+	.detail-value {
+		color: #475569;
+		font-size: 1.1rem;
+		text-align: right;
+	}
+
+	.map-embed {
+		position: relative;
+		padding-top: 56.25%;
+		height: 0;
+		overflow: hidden;
+		flex-grow: 1;
+	}
+
+	.map-embed iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		border: 0;
+		border-radius: 0 0 16px 16px;
+		background: white;
+	}
+
+	.belief-content p {
+		font-size: 1.2rem;
+		line-height: 1.8;
+		color: #475569;
+		max-width: 900px;
+		margin: 0 auto 2rem auto;
+		text-align: center;
 	}
 
 	/* Pickup Section */
@@ -204,8 +312,10 @@ import Layout from '../layouts/Layout.astro';
 		flex-wrap: wrap;
 	}
 
-	.pickup-location {
+	.pickup-maps-container .map-card-container {
 		flex: 1;
+		min-width: 300px;
+		max-width: 500px;
 	}
 
 	/* Join Section */
@@ -275,17 +385,44 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		.hero {
-			padding: 4rem 0;
+			padding: 3rem 0;
 		}
 
 		.hero h1 {
-			font-size: 2.5rem;
+			font-size: 2.2rem;
+		}
+
+		.hero-subtitle {
+			font-size: 1.1rem;
 		}
 
 		.about-church-section,
 		.map-section,
 		.join-section {
 			padding: 3rem 0;
+		}
+
+		.map-card-container {
+			max-width: 100%;
+		}
+
+		.map-card {
+			height: 350px;
+			max-width: 100%;
+		}
+
+		.service-details {
+			padding: 1rem 1rem 0 1rem;
+		}
+
+		.detail-item {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.detail-value {
+			text-align: left;
 		}
 
 		.join-actions {
