@@ -51,3 +51,37 @@ const buttonClasses = `${variantClass} ${sizeClasses[size]} ${additionalClasses}
     <slot>{children}</slot>
   </button>
 )}
+
+<style>
+  .primary-button,
+  .secondary-button {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .primary-button {
+    background: #38b6ff;
+    color: white;
+  }
+
+  .primary-button:hover {
+    background: #2d92cc;
+    transform: translateY(-2px);
+  }
+
+  .secondary-button {
+    background: white;
+    color: #38b6ff;
+    border: 2px solid #38b6ff;
+  }
+
+  .secondary-button:hover {
+    background: #38b6ff;
+    color: white;
+  }
+</style>
