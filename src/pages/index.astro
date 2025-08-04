@@ -29,12 +29,13 @@ import Button from '../components/Button.astro';
 	<section class="instagram-section">
 		<div class="container">
 			<h2>Follow Us on Instagram!</h2>
+			<p class="instagram-description">We’re one community with two college fellowships: Koinonia at SFSU and Klesis near USF and CCSF John Adams.</p>
 			<div class="instagram-embeds">
 				<div class="instagram-embed-item">
-					<iframe class="instagram-iframe" src="https://www.instagram.com/klesis.sanfrancisco/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+					<iframe class="instagram-iframe" src="https://www.instagram.com/sfsukoinonia/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 				</div>
 				<div class="instagram-embed-item">
-					<iframe class="instagram-iframe" src="https://www.instagram.com/sfsukoinonia/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+					<iframe class="instagram-iframe" src="https://www.instagram.com/klesis.sanfrancisco/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 				</div>
 			</div>
 		</div>
@@ -149,6 +150,15 @@ import Button from '../components/Button.astro';
 		font-weight: 700;
 		margin-bottom: var(--spacing-md);
 		color: var(--color-text);
+	}
+
+	.instagram-description {
+		font-size: 1.1rem;
+		line-height: 1.8;
+		max-width: 800px;
+		margin: 0 auto var(--space-lg);
+		text-align: center;
+		color: #475569;
 	}
 
 	.instagram-embeds {
