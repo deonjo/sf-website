@@ -17,17 +17,18 @@ import Layout from '../layouts/Layout.astro';
 	<section class="form-section">
 		<div class="container">
 			<div class="form-container">
-				<iframe 
-					src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal" 
-					width="100%" 
-					height="800" 
-					frameborder="0" 
-					marginheight="0" 
-					marginwidth="0"
-					style="border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);"
-				>
-					Loading…
-				</iframe>
+				<div class="iframe-scale">
+					<iframe
+						src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						frameborder="0"
+						marginheight="0"
+						marginwidth="0"
+					>
+						Loading…
+					</iframe>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -56,7 +57,7 @@ import Layout from '../layouts/Layout.astro';
 	.hero {
 		position: relative;
 		color: white;
-		padding: var(--space-xl) 0;
+		padding: var(--space-xl) 0 var(--space-lg);
 		text-align: center;
 		overflow: hidden;
 	}
@@ -97,22 +98,42 @@ import Layout from '../layouts/Layout.astro';
 
 	/* Form Section */
 	.form-section {
-		padding: var(--space-xl) 0;
+		padding: var(--space-md) 0 var(--space-xl);
 		background: var(--color-bg);
 	}
 
 	.form-section .container {
 		max-width: var(--form-width);
 		margin: 0 auto;
-		padding: var(--space-md);
+		padding: var(--space-sm) var(--space-md) var(--space-md);
 	}
 
-	.form-section .container iframe {
-		width: 100%;
-		height: 1500px;
-		border: none;
+	/* Scaled iframe wrapper to make the embedded Google Form more compact.
+	   Note: We cannot style the form itself because it is inside a cross-origin iframe.
+	   This wrapper scales the entire iframe as a safe workaround. */
+	.form-container {
+		--form-scale: 0.88;
+		--form-height: 1500px;
+		position: relative;
+		overflow: hidden;
 		border-radius: var(--radius-lg);
 		background: var(--color-bg);
+		height: var(--form-height);
+	}
+
+	.form-container .iframe-scale {
+		transform: scale(var(--form-scale));
+		transform-origin: top left;
+		width: calc(100% / var(--form-scale));
+		height: calc(var(--form-height) / var(--form-scale));
+	}
+
+	.form-container iframe {
+		display: block;
+		width: 100%;
+		height: var(--form-height);
+		border: 0;
+		background: transparent;
 	}
 
 	/* Info Section */
@@ -181,7 +202,7 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		.hero {
-			padding: var(--space-lg) 0;
+			padding: var(--space-lg) 0 var(--space-md);
 		}
 
 		.hero h1 {
@@ -197,8 +218,17 @@ import Layout from '../layouts/Layout.astro';
 			padding: var(--space-md) 0;
 		}
 
-		.form-section .container iframe {
-			height: 900px; /* Slightly taller on mobile for better form display */
+		/* Tighten the gap between hero and form further on mobile */
+		.form-section { 
+			padding-top: var(--space-sm);
+		}
+
+		.form-section .container {
+			padding-top: var(--space-sm);
+		}
+
+		.form-container {
+			--form-scale: 1; /* Don't scale down on smaller screens for readability */
 		}
 
 		.quick-links ul {
