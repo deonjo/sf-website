@@ -1,6 +1,73 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import { readdirSync, statSync, existsSync, mkdirSync } from 'node:fs';
+import { join, extname, basename } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+
+// Build-time discovery of images from `public/gallery`
+let galleryImages: string[] = [];
+try {
+  const galleryDirUrl = new URL('../../public/gallery/', import.meta.url);
+  const galleryDirPath = fileURLToPath(galleryDirUrl);
+  const allowedExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif', '.heic', '.heif']);
+  const entries = readdirSync(galleryDirPath);
+
+  const visited = new Set<string>();
+  const items: Array<{ url: string; mtime: number }> = [];
+
+  for (const name of entries) {
+    const fullPath = join(galleryDirPath, name);
+    let stats: ReturnType<typeof statSync> | null = null;
+    try {
+      stats = statSync(fullPath);
+    } catch {
+      continue;
+    }
+    if (!stats.isFile()) continue;
+
+    const ext = extname(name).toLowerCase();
+    if (!allowedExtensions.has(ext)) continue;
+
+    // Handle HEIC/HEIF by converting to WEBP at build time and using the WEBP in the gallery
+    if (ext === '.heic' || ext === '.heif') {
+      const destName = `${basename(name, ext)}.webp`;
+      const destPath = join(galleryDirPath, destName);
+      if (!existsSync(destPath)) {
+        try {
+          // Ensure directory exists (paranoia for nested paths)
+          mkdirSync(galleryDirPath, { recursive: true });
+          await sharp(fullPath).webp({ quality: 82 }).toFile(destPath);
+        } catch {
+          // If conversion fails, skip adding the HEIC file (since many browsers can't render it)
+          continue;
+        }
+      }
+      if (!visited.has(destName)) {
+        const mtime = statSync(destPath).mtimeMs;
+        items.push({ url: `/gallery/${destName}`, mtime });
+        visited.add(destName);
+      }
+      continue;
+    }
+
+    // Regular supported formats
+    if (!visited.has(name)) {
+      items.push({ url: `/gallery/${name}`, mtime: stats.mtimeMs });
+      visited.add(name);
+    }
+  }
+
+  // Randomize order (Fisher–Yates shuffle)
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  galleryImages = items.map((i) => i.url);
+} catch {
+  galleryImages = [];
+}
 ---
 
 <Layout title="Acts College SF">
@@ -70,11 +137,27 @@ import Button from '../components/Button.astro';
 		</div>
 	</section>
 
+	<!-- Gallery Section at the bottom of the homepage -->
+	<section class="gallery-section" aria-label="Photo gallery">
+		<div class="container">
+			<h3>Gallery</h3>
+			<div class="gallery-grid">
+				{galleryImages.map((src) => (
+					<a class="gallery-item" href={src} target="_blank" rel="noopener noreferrer">
+						<img src={src} alt="" loading="lazy" decoding="async" fetchpriority="low" />
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
 	<section class="statement-section">
 		<div class="container">
 			<Button href="/statement-of-faith" variant="outline">Statement of Faith</Button>
 		</div>
 	</section>
+
+	
 </Layout>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
@@ -308,6 +391,56 @@ import Button from '../components/Button.astro';
 		text-align: center;
 	}
 
+	/* Gallery Section */
+	.gallery-section {
+		padding: 4rem 0;
+		background: white;
+	}
+
+	.gallery-section h3 {
+		font-size: 2rem;
+		color: #1e293b;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.gallery-grid {
+		/* Masonry-style columns */
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
+		column-count: 4;
+		-webkit-column-gap: 12px;
+		-moz-column-gap: 12px;
+		column-gap: 12px;
+	}
+
+	.gallery-item {
+		display: block;
+		position: relative;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: var(--shadow-sm);
+		background: #f1f5f9;
+		/* Prevent items from breaking between columns */
+		break-inside: avoid;
+		-webkit-column-break-inside: avoid;
+		-moz-column-break-inside: avoid;
+		page-break-inside: avoid;
+		margin-bottom: 12px;
+	}
+
+	.gallery-item img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		transition: transform 0.4s ease;
+	}
+
+	.gallery-item:hover img {
+		transform: scale(1.04);
+	}
+
 	/* Mobile Styles */
 	@media (max-width: 768px) {
 		.container {
@@ -330,8 +463,19 @@ import Button from '../components/Button.astro';
 		.about-section,
 		.events-section,
 		.videos-section,
-		.statement-section {
+		.statement-section,
+		.gallery-section {
 			padding: 3rem 0;
+		}
+
+
+		.gallery-grid {
+			-webkit-column-count: 2;
+			-moz-column-count: 2;
+			column-count: 2;
+			-webkit-column-gap: 8px;
+			-moz-column-gap: 8px;
+			column-gap: 8px;
 		}
 
 		.calendar-embed .calendar-month-view {
