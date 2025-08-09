@@ -5,6 +5,7 @@ export interface Props {
 }
 
 const { title = 'Acts College SF', description = "Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!" } = Astro.props;
+import Analytics from '@vercel/analytics/astro';
 ---
 
 <!doctype html>
@@ -100,6 +101,7 @@ const { title = 'Acts College SF', description = "Acts College SF is a Christian
 				<p>&copy; {new Date().getFullYear()} Acts College SF. All rights reserved.</p>
 			</div>
 		</footer>
+		<Analytics />
 	</body>
 </html>
 
