@@ -38,9 +38,41 @@ try {
         try {
           // Ensure directory exists (paranoia for nested paths)
           mkdirSync(galleryDirPath, { recursive: true });
-          await sharp(fullPath).webp({ quality: 82 }).toFile(destPath);
+          await sharp(fullPath)
+            .toColorspace('srgb')
+            .webp({ quality: 82 })
+            .toFile(destPath);
         } catch {
           // If conversion fails, skip adding the HEIC file (since many browsers can't render it)
+          continue;
+        }
+      }
+      if (!visited.has(destName)) {
+        const mtime = statSync(destPath).mtimeMs;
+        items.push({ url: `/gallery/${destName}`, mtime });
+        visited.add(destName);
+      }
+      continue;
+    }
+
+    // Convert JPEG/JPG/AVIF to SDR WEBP to avoid HDR/gain-map rendering on capable displays
+    if (ext === '.jpg' || ext === '.jpeg' || ext === '.avif') {
+      const destName = `${basename(name, ext)}.webp`;
+      const destPath = join(galleryDirPath, destName);
+      if (!existsSync(destPath)) {
+        try {
+          mkdirSync(galleryDirPath, { recursive: true });
+          // Force to sRGB to avoid HDR presentation; re-encode as 8-bit WEBP
+          await sharp(fullPath)
+            .toColorspace('srgb')
+            .webp({ quality: 82 })
+            .toFile(destPath);
+        } catch {
+          // Fallback to original if conversion fails
+          if (!visited.has(name)) {
+            items.push({ url: `/gallery/${name}`, mtime: stats.mtimeMs });
+            visited.add(name);
+          }
           continue;
         }
       }
