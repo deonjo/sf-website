@@ -100,6 +100,71 @@ try {
 } catch {
   galleryImages = [];
 }
+
+// Build-time responsive variants and color LQIP placeholders for faster perceived loading
+type GalleryMeta = {
+  width: number;
+  height: number;
+  placeholder: string; // base64 data URI
+  src: string; // default src (smallest responsive)
+  srcset: string; // responsive candidates
+};
+
+let galleryMeta: Record<string, GalleryMeta> = {};
+
+try {
+  const galleryDirUrl = new URL('../../public/gallery/', import.meta.url);
+  const galleryDirPath = fileURLToPath(galleryDirUrl);
+  const resizedDirPath = fileURLToPath(new URL('../../public/gallery/_resized/', import.meta.url));
+  mkdirSync(resizedDirPath, { recursive: true });
+
+  const buildMetaFor = async (url: string): Promise<GalleryMeta | null> => {
+    try {
+      const fileName = url.replace('/gallery/', '');
+      const absPath = join(galleryDirPath, fileName);
+      const meta = await sharp(absPath).metadata();
+      const origWidth = meta.width || 0;
+      const origHeight = meta.height || 0;
+      if (!origWidth || !origHeight) return null;
+
+      const candidateWidths = [320, 640, 960].filter((w) => w <= origWidth);
+      const widths = candidateWidths.length ? candidateWidths : [Math.min(320, Math.max(1, origWidth))];
+      const entries: Array<{ url: string; w: number }> = [];
+
+      for (const w of widths) {
+        const outName = `${basename(fileName, extname(fileName))}-w${w}.webp`;
+        const outPath = join(resizedDirPath, outName);
+        if (!existsSync(outPath)) {
+          await sharp(absPath)
+            .toColorspace('srgb')
+            .resize({ width: w })
+            .webp({ quality: 80 })
+            .toFile(outPath);
+        }
+        entries.push({ url: `/gallery/_resized/${outName}`, w });
+      }
+
+      const src = entries[0].url;
+      const srcset = entries.map((e) => `${e.url} ${e.w}w`).join(', ');
+
+      const lqipBuffer = await sharp(absPath)
+        .toColorspace('srgb')
+        .resize({ width: 24 })
+        .webp({ quality: 40 })
+        .toBuffer();
+      const placeholder = `data:image/webp;base64,${lqipBuffer.toString('base64')}`;
+
+      return { width: origWidth, height: origHeight, placeholder, src, srcset };
+    } catch {
+      return null;
+    }
+  };
+
+  for (const url of galleryImages) {
+    const m = await buildMetaFor(url);
+    if (m) galleryMeta[url] = m;
+  }
+} catch {}
 ---
 
 <Layout title="Acts College SF">
@@ -174,11 +239,26 @@ try {
 		<div class="container">
 			<h3>Gallery</h3>
 			<div class="gallery-grid">
-				{galleryImages.map((src) => (
-					<a class="gallery-item" href={src} target="_blank" rel="noopener noreferrer">
-						<img src={src} alt="" loading="lazy" decoding="async" fetchpriority="low" />
-					</a>
-				))}
+				{galleryImages.map((href, index) => {
+					const meta = galleryMeta[href];
+					const eager = index < 8; // prioritize first rows
+					const bgStyle = meta ? `background-image: url('${meta.placeholder}'); background-size: cover; background-position: center; background-repeat: no-repeat;` : undefined;
+					return (
+						<a class="gallery-item" href={href} target="_blank" rel="noopener noreferrer" style={bgStyle}>
+							<img
+								src={meta ? meta.src : href}
+								srcset={meta && meta.srcset}
+								sizes="(max-width: 768px) 50vw, 25vw"
+								width={meta && meta.width}
+								height={meta && meta.height}
+								alt=""
+								loading={eager ? 'eager' : 'lazy'}
+								decoding="async"
+								fetchpriority={eager ? 'high' : 'auto'}
+							/>
+						</a>
+					);
+				})}
 			</div>
 		</div>
 	</section>
@@ -188,6 +268,22 @@ try {
 	document.addEventListener('DOMContentLoaded', () => {
 		const video = document.querySelector('.hero-video') as HTMLVideoElement;
 		video.load();
+
+		// Fade-in gallery images when they are loaded and remove LQIP background
+		const imgs = document.querySelectorAll('.gallery-item img') as NodeListOf<HTMLImageElement>;
+		imgs.forEach((img) => {
+			const parent = img.closest('.gallery-item') as HTMLElement | null;
+			const reveal = () => {
+				if (!parent) return;
+				parent.classList.add('loaded');
+				parent.style.backgroundImage = 'none';
+			};
+			if (img.complete && img.naturalWidth > 0) {
+				reveal();
+			} else {
+				img.addEventListener('load', reveal, { once: true });
+			}
+		});
 	});
 </script>
 
@@ -446,6 +542,9 @@ try {
 		overflow: hidden;
 		box-shadow: var(--shadow-sm);
 		background: #f1f5f9;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
 		/* Prevent items from breaking between columns */
 		break-inside: avoid;
 		-webkit-column-break-inside: avoid;
@@ -459,11 +558,16 @@ try {
 		width: 100%;
 		height: auto;
 		object-fit: cover;
-		transition: transform 0.4s ease;
+		transition: opacity 0.3s ease, transform 0.4s ease;
+		opacity: 0; /* reveal after full-res loads */
 	}
 
 	.gallery-item:hover img {
 		transform: scale(1.04);
+	}
+
+	.gallery-item.loaded img {
+		opacity: 1;
 	}
 
 	/* Mobile Styles */
