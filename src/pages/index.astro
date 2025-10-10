@@ -167,14 +167,17 @@ try {
 } catch {}
 ---
 
-<Layout title="Acts College SF">
+<Layout
+	title="Acts College SF: Christian Fellowship for SFSU & USF Students"
+	description="Acts College SF is a Christian fellowship for college students and young professionals in San Francisco. We serve SFSU, USF, and CCSF. Join us for worship, Bible study, and community!"
+>
 	<section class="hero">
 		<video autoplay loop muted playsinline class="hero-video" poster="/header-banners/unsplash-image-OD9EOzfSOh0.webp" preload="none">
 			<source src="/header-banners/Klesis SF Website Banner.mp4" type="video/mp4">
 		</video>
 		<div class="hero-overlay"></div>
 		<div class="container">
-			<h1>Welcome</h1>
+			<h1>Acts College SF: A Christian Fellowship in San Francisco</h1>
 			<p class="hero-subtitle">We're glad you're here!</p>
 			<Button href="/connect" variant="primary" size="lg">I'M NEW!</Button>
 		</div>
@@ -243,6 +246,19 @@ try {
 					const meta = galleryMeta[href];
 					const eager = index < 8; // prioritize first rows
 					const bgStyle = meta ? `background-image: url('${meta.placeholder}'); background-size: cover; background-position: center; background-repeat: no-repeat;` : undefined;
+					const getAltText = (url: string) => {
+						try {
+							const fileName = url.split('/').pop()?.split('.').slice(0, -1).join('.') ?? '';
+							const cleanedName = decodeURIComponent(fileName).replace(/[_-]/g, ' ');
+							if (/^(PXL|IMG|DSC)/i.test(cleanedName)) {
+								return 'A photo from the Acts College SF gallery';
+							}
+							const finalName = cleanedName.charAt(0).toUpperCase() + cleanedName.slice(1);
+							return `Acts College SF - ${finalName}`;
+						} catch {
+							return 'A photo from the Acts College SF gallery';
+						}
+					};
 					return (
 						<a class="gallery-item" href={href} target="_blank" rel="noopener noreferrer" style={bgStyle}>
 							<img
@@ -251,7 +267,7 @@ try {
 								sizes="(max-width: 768px) 50vw, 25vw"
 								width={meta && meta.width}
 								height={meta && meta.height}
-								alt=""
+								alt={getAltText(href)}
 								loading={eager ? 'eager' : 'lazy'}
 								decoding="async"
 								fetchpriority={eager ? 'high' : 'auto'}

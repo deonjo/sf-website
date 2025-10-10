@@ -40,6 +40,56 @@ import Analytics from '@vercel/analytics/astro';
 		  }
 		</script>
 		<script src="https://app.chibi.sh/scripts/simple.js" data-project-id="sfactscollege-9465"></script>
+
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Church",
+		  "name": "Acts College SF",
+		  "address": {
+		    "@type": "PostalAddress",
+		    "streetAddress": "1275 Harbor Bay Pkwy",
+		    "addressLocality": "Alameda",
+		    "addressRegion": "CA",
+		    "postalCode": "94502",
+		    "addressCountry": "US"
+		  },
+		  "email": "actcollegesf@gmail.com",
+		  "url": "https://sf.actscollege.church/",
+		  "description": "A Christian fellowship serving college students and young professionals from SFSU, USF, and CCSF in the San Francisco area."
+		}
+		</script>
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Event",
+		  "name": "Acts College SF Sunday Service",
+		  "eventSchedule": {
+			"@type": "Schedule",
+			"byDay": "Sunday",
+			"startTime": "12:00",
+			"endTime": "13:30",
+			"repeatFrequency": "P1W"
+		  },
+		  "location": {
+			"@type": "Place",
+			"name": "Acts2 Network",
+			"address": {
+			  "@type": "PostalAddress",
+			  "streetAddress": "1275 Harbor Bay Pkwy",
+			  "addressLocality": "Alameda",
+			  "addressRegion": "CA",
+			  "postalCode": "94502"
+			}
+		  },
+		  "description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
+		  "organizer": {
+			"@type": "Organization",
+			"name": "Acts College SF",
+			"url": "https://sf.actscollege.church/"
+		  }
+		}
+		</script>
 	</head>
 	<body>
 		<nav class="navbar">
