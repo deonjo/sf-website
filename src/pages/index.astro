@@ -1,169 +1,193 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
-import { readdirSync, statSync, existsSync, mkdirSync } from 'node:fs';
-import { join, extname, basename } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import { readdirSync, statSync, existsSync, mkdirSync } from "node:fs";
+import { join, extname, basename } from "node:path";
+import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 // Build-time discovery of images from `public/gallery`
 let galleryImages: string[] = [];
 try {
-  const galleryDirUrl = new URL('../../public/gallery/', import.meta.url);
-  const galleryDirPath = fileURLToPath(galleryDirUrl);
-  const allowedExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif', '.heic', '.heif']);
-  const entries = readdirSync(galleryDirPath);
+	const galleryDirUrl = new URL("../../public/gallery/", import.meta.url);
+	const galleryDirPath = fileURLToPath(galleryDirUrl);
+	const allowedExtensions = new Set([
+		".jpg",
+		".jpeg",
+		".png",
+		".webp",
+		".gif",
+		".avif",
+		".heic",
+		".heif",
+	]);
+	const entries = readdirSync(galleryDirPath);
 
-  const visited = new Set<string>();
-  const items: Array<{ url: string; mtime: number }> = [];
+	const visited = new Set<string>();
+	const items: Array<{ url: string; mtime: number }> = [];
 
-  for (const name of entries) {
-    const fullPath = join(galleryDirPath, name);
-    let stats: ReturnType<typeof statSync> | null = null;
-    try {
-      stats = statSync(fullPath);
-    } catch {
-      continue;
-    }
-    if (!stats.isFile()) continue;
+	for (const name of entries) {
+		const fullPath = join(galleryDirPath, name);
+		let stats: ReturnType<typeof statSync> | null = null;
+		try {
+			stats = statSync(fullPath);
+		} catch {
+			continue;
+		}
+		if (!stats.isFile()) continue;
 
-    const ext = extname(name).toLowerCase();
-    if (!allowedExtensions.has(ext)) continue;
+		const ext = extname(name).toLowerCase();
+		if (!allowedExtensions.has(ext)) continue;
 
-    // Handle HEIC/HEIF by converting to WEBP at build time and using the WEBP in the gallery
-    if (ext === '.heic' || ext === '.heif') {
-      const destName = `${basename(name, ext)}.webp`;
-      const destPath = join(galleryDirPath, destName);
-      if (!existsSync(destPath)) {
-        try {
-          // Ensure directory exists (paranoia for nested paths)
-          mkdirSync(galleryDirPath, { recursive: true });
-          await sharp(fullPath)
-            .toColorspace('srgb')
-            .webp({ quality: 82 })
-            .toFile(destPath);
-        } catch {
-          // If conversion fails, skip adding the HEIC file (since many browsers can't render it)
-          continue;
-        }
-      }
-      if (!visited.has(destName)) {
-        const mtime = statSync(destPath).mtimeMs;
-        items.push({ url: `/gallery/${destName}`, mtime });
-        visited.add(destName);
-      }
-      continue;
-    }
+		// Handle HEIC/HEIF by converting to WEBP at build time and using the WEBP in the gallery
+		if (ext === ".heic" || ext === ".heif") {
+			const destName = `${basename(name, ext)}.webp`;
+			const destPath = join(galleryDirPath, destName);
+			if (!existsSync(destPath)) {
+				try {
+					// Ensure directory exists (paranoia for nested paths)
+					mkdirSync(galleryDirPath, { recursive: true });
+					await sharp(fullPath)
+						.toColorspace("srgb")
+						.webp({ quality: 82 })
+						.toFile(destPath);
+				} catch {
+					// If conversion fails, skip adding the HEIC file (since many browsers can't render it)
+					continue;
+				}
+			}
+			if (!visited.has(destName)) {
+				const mtime = statSync(destPath).mtimeMs;
+				items.push({ url: `/gallery/${destName}`, mtime });
+				visited.add(destName);
+			}
+			continue;
+		}
 
-    // Convert JPEG/JPG/AVIF to SDR WEBP to avoid HDR/gain-map rendering on capable displays
-    if (ext === '.jpg' || ext === '.jpeg' || ext === '.avif') {
-      const destName = `${basename(name, ext)}.webp`;
-      const destPath = join(galleryDirPath, destName);
-      if (!existsSync(destPath)) {
-        try {
-          mkdirSync(galleryDirPath, { recursive: true });
-          // Force to sRGB to avoid HDR presentation; re-encode as 8-bit WEBP
-          await sharp(fullPath)
-            .toColorspace('srgb')
-            .webp({ quality: 82 })
-            .toFile(destPath);
-        } catch {
-          // Fallback to original if conversion fails
-          if (!visited.has(name)) {
-            items.push({ url: `/gallery/${name}`, mtime: stats.mtimeMs });
-            visited.add(name);
-          }
-          continue;
-        }
-      }
-      if (!visited.has(destName)) {
-        const mtime = statSync(destPath).mtimeMs;
-        items.push({ url: `/gallery/${destName}`, mtime });
-        visited.add(destName);
-      }
-      continue;
-    }
+		// Convert JPEG/JPG/AVIF to SDR WEBP to avoid HDR/gain-map rendering on capable displays
+		if (ext === ".jpg" || ext === ".jpeg" || ext === ".avif") {
+			const destName = `${basename(name, ext)}.webp`;
+			const destPath = join(galleryDirPath, destName);
+			if (!existsSync(destPath)) {
+				try {
+					mkdirSync(galleryDirPath, { recursive: true });
+					// Force to sRGB to avoid HDR presentation; re-encode as 8-bit WEBP
+					await sharp(fullPath)
+						.toColorspace("srgb")
+						.webp({ quality: 82 })
+						.toFile(destPath);
+				} catch {
+					// Fallback to original if conversion fails
+					if (!visited.has(name)) {
+						items.push({
+							url: `/gallery/${name}`,
+							mtime: stats.mtimeMs,
+						});
+						visited.add(name);
+					}
+					continue;
+				}
+			}
+			if (!visited.has(destName)) {
+				const mtime = statSync(destPath).mtimeMs;
+				items.push({ url: `/gallery/${destName}`, mtime });
+				visited.add(destName);
+			}
+			continue;
+		}
 
-    // Regular supported formats
-    if (!visited.has(name)) {
-      items.push({ url: `/gallery/${name}`, mtime: stats.mtimeMs });
-      visited.add(name);
-    }
-  }
+		// Regular supported formats
+		if (!visited.has(name)) {
+			items.push({ url: `/gallery/${name}`, mtime: stats.mtimeMs });
+			visited.add(name);
+		}
+	}
 
-  // Randomize order (Fisher–Yates shuffle)
-  for (let i = items.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [items[i], items[j]] = [items[j], items[i]];
-  }
-  galleryImages = items.map((i) => i.url);
+	// Randomize order (Fisher–Yates shuffle)
+	for (let i = items.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[items[i], items[j]] = [items[j], items[i]];
+	}
+	galleryImages = items.map((i) => i.url);
 } catch {
-  galleryImages = [];
+	galleryImages = [];
 }
 
 // Build-time responsive variants and color LQIP placeholders for faster perceived loading
 type GalleryMeta = {
-  width: number;
-  height: number;
-  placeholder: string; // base64 data URI
-  src: string; // default src (smallest responsive)
-  srcset: string; // responsive candidates
+	width: number;
+	height: number;
+	placeholder: string; // base64 data URI
+	src: string; // default src (smallest responsive)
+	srcset: string; // responsive candidates
 };
 
 let galleryMeta: Record<string, GalleryMeta> = {};
 
 try {
-  const galleryDirUrl = new URL('../../public/gallery/', import.meta.url);
-  const galleryDirPath = fileURLToPath(galleryDirUrl);
-  const resizedDirPath = fileURLToPath(new URL('../../public/gallery/_resized/', import.meta.url));
-  mkdirSync(resizedDirPath, { recursive: true });
+	const galleryDirUrl = new URL("../../public/gallery/", import.meta.url);
+	const galleryDirPath = fileURLToPath(galleryDirUrl);
+	const resizedDirPath = fileURLToPath(
+		new URL("../../public/gallery/_resized/", import.meta.url),
+	);
+	mkdirSync(resizedDirPath, { recursive: true });
 
-  const buildMetaFor = async (url: string): Promise<GalleryMeta | null> => {
-    try {
-      const fileName = url.replace('/gallery/', '');
-      const absPath = join(galleryDirPath, fileName);
-      const meta = await sharp(absPath).metadata();
-      const origWidth = meta.width || 0;
-      const origHeight = meta.height || 0;
-      if (!origWidth || !origHeight) return null;
+	const buildMetaFor = async (url: string): Promise<GalleryMeta | null> => {
+		try {
+			const fileName = url.replace("/gallery/", "");
+			const absPath = join(galleryDirPath, fileName);
+			const meta = await sharp(absPath).metadata();
+			const origWidth = meta.width || 0;
+			const origHeight = meta.height || 0;
+			if (!origWidth || !origHeight) return null;
 
-      const candidateWidths = [320, 640, 960].filter((w) => w <= origWidth);
-      const widths = candidateWidths.length ? candidateWidths : [Math.min(320, Math.max(1, origWidth))];
-      const entries: Array<{ url: string; w: number }> = [];
+			const candidateWidths = [320, 640, 960].filter(
+				(w) => w <= origWidth,
+			);
+			const widths = candidateWidths.length
+				? candidateWidths
+				: [Math.min(320, Math.max(1, origWidth))];
+			const entries: Array<{ url: string; w: number }> = [];
 
-      for (const w of widths) {
-        const outName = `${basename(fileName, extname(fileName))}-w${w}.webp`;
-        const outPath = join(resizedDirPath, outName);
-        if (!existsSync(outPath)) {
-          await sharp(absPath)
-            .toColorspace('srgb')
-            .resize({ width: w })
-            .webp({ quality: 80 })
-            .toFile(outPath);
-        }
-        entries.push({ url: `/gallery/_resized/${outName}`, w });
-      }
+			for (const w of widths) {
+				const outName = `${basename(fileName, extname(fileName))}-w${w}.webp`;
+				const outPath = join(resizedDirPath, outName);
+				if (!existsSync(outPath)) {
+					await sharp(absPath)
+						.toColorspace("srgb")
+						.resize({ width: w })
+						.webp({ quality: 80 })
+						.toFile(outPath);
+				}
+				entries.push({ url: `/gallery/_resized/${outName}`, w });
+			}
 
-      const src = entries[0].url;
-      const srcset = entries.map((e) => `${e.url} ${e.w}w`).join(', ');
+			const src = entries[0].url;
+			const srcset = entries.map((e) => `${e.url} ${e.w}w`).join(", ");
 
-      const lqipBuffer = await sharp(absPath)
-        .toColorspace('srgb')
-        .resize({ width: 24 })
-        .webp({ quality: 40 })
-        .toBuffer();
-      const placeholder = `data:image/webp;base64,${lqipBuffer.toString('base64')}`;
+			const lqipBuffer = await sharp(absPath)
+				.toColorspace("srgb")
+				.resize({ width: 24 })
+				.webp({ quality: 40 })
+				.toBuffer();
+			const placeholder = `data:image/webp;base64,${lqipBuffer.toString("base64")}`;
 
-      return { width: origWidth, height: origHeight, placeholder, src, srcset };
-    } catch {
-      return null;
-    }
-  };
+			return {
+				width: origWidth,
+				height: origHeight,
+				placeholder,
+				src,
+				srcset,
+			};
+		} catch {
+			return null;
+		}
+	};
 
-  for (const url of galleryImages) {
-    const m = await buildMetaFor(url);
-    if (m) galleryMeta[url] = m;
-  }
+	for (const url of galleryImages) {
+		const m = await buildMetaFor(url);
+		if (m) galleryMeta[url] = m;
+	}
 } catch {}
 ---
 
@@ -172,23 +196,37 @@ try {
 	description="Acts College SF is a Christian fellowship for college students and young professionals in San Francisco. We serve SFSU, USF, and CCSF. Join us for worship, Bible study, and community!"
 >
 	<section class="hero">
-		<video autoplay loop muted playsinline class="hero-video" poster="/header-banners/unsplash-image-OD9EOzfSOh0.webp" preload="none">
-			<source src="/header-banners/Klesis SF Website Banner.mp4" type="video/mp4">
+		<video
+			autoplay
+			loop
+			muted
+			playsinline
+			class="hero-video"
+			poster="/header-banners/unsplash-image-OD9EOzfSOh0.webp"
+			preload="none"
+		>
+			<source
+				src="/header-banners/Klesis SF Website Banner.mp4"
+				type="video/mp4"
+			/>
 		</video>
 		<div class="hero-overlay"></div>
 		<div class="container">
 			<h1>Welcome</h1>
 			<p class="hero-subtitle">We're glad you're here!</p>
-			<Button href="/connect" variant="primary" size="lg">I'M NEW!</Button>
+			<Button href="/connect" variant="primary" size="lg">I'M NEW!</Button
+			>
 		</div>
 	</section>
 
 	<section class="about-section">
 		<div class="container">
-			<h3>What is Acts College SF?</h3>
+			<h2>What is Acts College SF?</h2>
 			<p>
-				Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. 
-				We gather weekly for worship, Bible study, and fellowship as we grow together in our faith.
+				Acts College SF is a Christian fellowship serving college
+				students and young professionals in the San Francisco area. We
+				gather weekly for worship, Bible study, and fellowship as we
+				grow together in our faith.
 			</p>
 		</div>
 	</section>
@@ -196,13 +234,26 @@ try {
 	<section class="instagram-section">
 		<div class="container">
 			<h2>Follow Us on Instagram!</h2>
-			<p class="instagram-description">We’re one community with two college fellowships: Koinonia at SFSU and Klesis near USF and CCSF John Adams.</p>
+			<p class="instagram-description">
+				We’re one community with two college fellowships: Koinonia at
+				SFSU and Klesis near USF and CCSF John Adams.
+			</p>
 			<div class="instagram-embeds">
 				<div class="instagram-embed-item">
-					<iframe class="instagram-iframe" src="https://www.instagram.com/sfsukoinonia/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+					<iframe
+						class="instagram-iframe"
+						src="https://www.instagram.com/sfsukoinonia/embed/"
+						frameborder="0"
+						scrolling="no"
+						allowtransparency="true"></iframe>
 				</div>
 				<div class="instagram-embed-item">
-					<iframe class="instagram-iframe" src="https://www.instagram.com/klesis.sanfrancisco/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+					<iframe
+						class="instagram-iframe"
+						src="https://www.instagram.com/klesis.sanfrancisco/embed/"
+						frameborder="0"
+						scrolling="no"
+						allowtransparency="true"></iframe>
 				</div>
 			</div>
 		</div>
@@ -221,7 +272,8 @@ try {
 					height="600"
 					frameborder="0"
 					scrolling="no"
-					loading="lazy">
+					loading="lazy"
+				>
 				</iframe>
 				<iframe
 					class="calendar-list-view"
@@ -231,7 +283,8 @@ try {
 					height="600"
 					frameborder="0"
 					scrolling="no"
-					loading="lazy">
+					loading="lazy"
+				>
 				</iframe>
 			</div>
 		</div>
@@ -240,64 +293,85 @@ try {
 	<!-- Gallery Section at the bottom of the homepage -->
 	<section class="gallery-section" aria-label="Photo gallery">
 		<div class="container">
-			<h3>Gallery</h3>
+			<h2>Gallery</h2>
 			<div class="gallery-grid">
-				{galleryImages.map((href, index) => {
-					const meta = galleryMeta[href];
-					const eager = index < 8; // prioritize first rows
-					const bgStyle = meta ? `background-image: url('${meta.placeholder}'); background-size: cover; background-position: center; background-repeat: no-repeat;` : undefined;
-					const getAltText = (url: string) => {
-						try {
-							const fileName = url.split('/').pop()?.split('.').slice(0, -1).join('.') ?? '';
-							const cleanedName = decodeURIComponent(fileName).replace(/[_-]/g, ' ');
-							if (/^(PXL|IMG|DSC)/i.test(cleanedName)) {
-								return 'A photo from the Acts College SF gallery';
+				{
+					galleryImages.map((href, index) => {
+						const meta = galleryMeta[href];
+						const eager = index < 8; // prioritize first rows
+						const bgStyle = meta
+							? `background-image: url('${meta.placeholder}'); background-size: cover; background-position: center; background-repeat: no-repeat;`
+							: undefined;
+						const getAltText = (url: string) => {
+							try {
+								const fileName =
+									url
+										.split("/")
+										.pop()
+										?.split(".")
+										.slice(0, -1)
+										.join(".") ?? "";
+								const cleanedName = decodeURIComponent(
+									fileName,
+								).replace(/[_-]/g, " ");
+								if (/^(PXL|IMG|DSC)/i.test(cleanedName)) {
+									return "A photo from the Acts College SF gallery";
+								}
+								const finalName =
+									cleanedName.charAt(0).toUpperCase() +
+									cleanedName.slice(1);
+								return `Acts College SF - ${finalName}`;
+							} catch {
+								return "A photo from the Acts College SF gallery";
 							}
-							const finalName = cleanedName.charAt(0).toUpperCase() + cleanedName.slice(1);
-							return `Acts College SF - ${finalName}`;
-						} catch {
-							return 'A photo from the Acts College SF gallery';
-						}
-					};
-					return (
-						<a class="gallery-item" href={href} target="_blank" rel="noopener noreferrer" style={bgStyle}>
-							<img
-								src={meta ? meta.src : href}
-								srcset={meta && meta.srcset}
-								sizes="(max-width: 768px) 50vw, 25vw"
-								width={meta && meta.width}
-								height={meta && meta.height}
-								alt={getAltText(href)}
-								loading={eager ? 'eager' : 'lazy'}
-								decoding="async"
-								fetchpriority={eager ? 'high' : 'auto'}
-							/>
-						</a>
-					);
-				})}
+						};
+						return (
+							<a
+								class="gallery-item"
+								href={href}
+								target="_blank"
+								rel="noopener noreferrer"
+								style={bgStyle}
+							>
+								<img
+									src={meta ? meta.src : href}
+									srcset={meta && meta.srcset}
+									sizes="(max-width: 768px) 50vw, 25vw"
+									width={meta && meta.width}
+									height={meta && meta.height}
+									alt={getAltText(href)}
+									loading={eager ? "eager" : "lazy"}
+									decoding="async"
+									fetchpriority={eager ? "high" : "auto"}
+								/>
+							</a>
+						);
+					})
+				}
 			</div>
 		</div>
 	</section>
-	
 </Layout>
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const video = document.querySelector('.hero-video') as HTMLVideoElement;
+	document.addEventListener("DOMContentLoaded", () => {
+		const video = document.querySelector(".hero-video") as HTMLVideoElement;
 		video.load();
 
 		// Fade-in gallery images when they are loaded and remove LQIP background
-		const imgs = document.querySelectorAll('.gallery-item img') as NodeListOf<HTMLImageElement>;
+		const imgs = document.querySelectorAll(
+			".gallery-item img",
+		) as NodeListOf<HTMLImageElement>;
 		imgs.forEach((img) => {
-			const parent = img.closest('.gallery-item') as HTMLElement | null;
+			const parent = img.closest(".gallery-item") as HTMLElement | null;
 			const reveal = () => {
 				if (!parent) return;
-				parent.classList.add('loaded');
-				parent.style.backgroundImage = 'none';
+				parent.classList.add("loaded");
+				parent.style.backgroundImage = "none";
 			};
 			if (img.complete && img.naturalWidth > 0) {
 				reveal();
 			} else {
-				img.addEventListener('load', reveal, { once: true });
+				img.addEventListener("load", reveal, { once: true });
 			}
 		});
 	});
@@ -307,7 +381,7 @@ try {
 	.container {
 		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 var(--spacing-md);
+		padding: 0 var(--spacing-sm);
 	}
 
 	/* Hero Section */
@@ -315,8 +389,12 @@ try {
 		position: relative;
 		overflow: hidden;
 		color: white;
-		padding: var(--space-xl) 0 var(--space-xl) 0;
+		padding: var(--spacing-xl) 0;
 		text-align: center;
+		min-height: 85vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.hero-video {
@@ -329,7 +407,7 @@ try {
 		height: auto;
 		z-index: -2;
 		transform: translateX(-50%) translateY(-50%);
-		background-size: cover;
+		object-fit: cover;
 	}
 
 	.hero-overlay {
@@ -338,44 +416,55 @@ try {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: var(--overlay);
+		background: linear-gradient(
+			to bottom,
+			rgba(15, 23, 42, 0.3),
+			rgba(15, 23, 42, 0.7)
+		);
 		z-index: -1;
+		backdrop-filter: blur(1px);
 	}
 
 	.hero h1 {
-		font-size: 3.5rem;
-		font-weight: 700;
+		font-size: clamp(3rem, 8vw, 5rem);
+		font-weight: 800;
 		margin-bottom: var(--spacing-sm);
+		line-height: 1.1;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+		letter-spacing: -0.02em;
+		color: white;
 	}
 
 	.hero-subtitle {
-		font-size: 1.5rem;
-		margin-bottom: var(--spacing-md);
-		opacity: 0.9;
+		font-size: clamp(1.25rem, 4vw, 1.5rem);
+		margin-bottom: var(--spacing-lg);
+		opacity: 0.95;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+		font-weight: 500;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
 	/* Instagram Section */
 	.instagram-section {
-		padding: var(--space-lg) 0;
+		padding: var(--spacing-xl) 0;
 		background: var(--color-bg-alt);
-		border-top: 1px solid var(--color-border);
 		text-align: center;
 	}
 
 	.instagram-section h2 {
-		font-size: var(--font-large);
-		font-weight: 700;
-		margin-bottom: var(--spacing-md);
+		font-size: 2.5rem;
+		margin-bottom: var(--spacing-sm);
 		color: var(--color-text);
 	}
 
 	.instagram-description {
-		font-size: 1.1rem;
+		font-size: 1.125rem;
 		line-height: 1.8;
 		max-width: 800px;
-		margin: 0 auto var(--space-lg);
-		text-align: center;
-		color: #475569;
+		margin: 0 auto var(--spacing-lg);
+		color: var(--color-text-light);
 	}
 
 	.instagram-embeds {
@@ -390,97 +479,72 @@ try {
 		min-width: 300px;
 		max-width: 450px;
 		background: var(--color-bg);
-		border-radius: var(--radius);
-		box-shadow: var(--shadow);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-lg);
 		overflow: hidden;
-		padding-bottom: var(--spacing-sm);
+		transition: var(--transition);
 	}
 
-	.instagram-embed-item h3 {
-		font-size: 1.5rem;
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-		color: #333;
+	.instagram-embed-item:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-xl);
 	}
 
 	.instagram-iframe {
 		width: 100%;
-		height: 500px; /* Adjust height as needed */
+		height: 500px;
 		border: none;
-	}
-
-	.instagram-embed-item p {
-		margin-top: 1rem;
-	}
-
-	.instagram-embed-item a {
-		color: #4f46e5;
-		text-decoration: none;
-		font-weight: 500;
-		transition: color 0.3s ease;
-	}
-
-	.instagram-embed-item a:hover {
-		color: #7c3aed;
-		text-decoration: underline;
-	}
-
-	@media (max-width: 768px) {
-		.instagram-embeds {
-			flex-direction: column;
-			align-items: center;
-		}
 	}
 
 	/* About Section */
 	.about-section {
-		padding: 4rem 0;
-		background: white;
+		padding: var(--spacing-xl) 0;
+		background: var(--color-bg);
 	}
 
-	.about-section h3 {
-		font-size: 2rem;
-		color: #1e293b;
-		margin-bottom: 2rem;
+	.about-section h2 {
+		font-size: 2.5rem;
+		color: var(--color-text);
+		margin-bottom: var(--spacing-md);
 		text-align: center;
 	}
 
 	.about-section p {
-		font-size: 1.1rem;
+		font-size: 1.25rem;
 		line-height: 1.8;
 		max-width: 800px;
 		margin: 0 auto;
 		text-align: center;
-		color: #475569;
+		color: var(--color-text-light);
 	}
 
 	/* Events Section */
 	.events-section {
-		padding: 4rem 0;
-		background: #f1f5f9;
+		padding: var(--spacing-xl) 0;
+		background: var(--color-bg-alt);
 		text-align: center;
 	}
 
 	.events-section h2 {
-		font-size: 2rem;
-		color: #1e293b;
-		margin-bottom: 1rem;
+		font-size: 2.5rem;
+		color: var(--color-text);
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.events-section p {
-		font-size: 1.1rem;
-		color: #64748b;
-		margin-bottom: 2rem;
+		font-size: 1.125rem;
+		color: var(--color-text-light);
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.calendar-embed {
-		max-width: 900px;
+		max-width: 1000px;
 		margin: 0 auto;
-		border-radius: 12px;
+		border-radius: var(--radius-md);
 		overflow: hidden;
-		box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-		border: 1px solid #e2e8f0;
+		box-shadow: var(--shadow-lg);
 		background: white;
+		padding: var(--spacing-sm);
 	}
 
 	.calendar-embed iframe {
@@ -488,85 +552,47 @@ try {
 		height: 600px;
 		border: none;
 		display: block;
+		border-radius: var(--radius-sm);
 	}
 
 	.calendar-embed .calendar-list-view {
 		display: none;
 	}
 
-	/* Videos Section */
-	.videos-section {
-		padding: 4rem 0;
-		background: white;
-		text-align: center;
-	}
-
-	.videos-section h3 {
-		font-size: 2rem;
-		color: #1e293b;
-		margin-bottom: 2rem;
-	}
-
-	.video-placeholder {
-		background: #f8fafc;
-		padding: 3rem;
-		border-radius: 12px;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.video-placeholder p {
-		color: #94a3b8;
-		font-size: 1rem;
-		margin: 0;
-	}
-
-	/* Statement Section */
-	.statement-section {
-		padding: 4rem 0;
-		background: #f8fafc;
-		text-align: center;
-	}
-
 	/* Gallery Section */
 	.gallery-section {
-		padding: 4rem 0;
-		background: white;
+		padding: var(--spacing-xl) 0;
+		background: var(--color-bg);
 	}
 
-	.gallery-section h3 {
-		font-size: 2rem;
-		color: #1e293b;
-		margin-bottom: 2rem;
+	.gallery-section h2 {
+		font-size: 2.5rem;
+		color: var(--color-text);
+		margin-bottom: var(--spacing-lg);
 		text-align: center;
 	}
 
 	.gallery-grid {
-		/* Masonry-style columns */
-		-webkit-column-count: 4;
-		-moz-column-count: 4;
-		column-count: 4;
-		-webkit-column-gap: 12px;
-		-moz-column-gap: 12px;
-		column-gap: 12px;
+		columns: 4 250px;
+		column-gap: var(--spacing-sm);
 	}
 
 	.gallery-item {
 		display: block;
 		position: relative;
-		border-radius: 12px;
+		border-radius: var(--radius-md);
 		overflow: hidden;
-		box-shadow: var(--shadow-sm);
-		background: #f1f5f9;
-		background-position: center;
-		background-size: cover;
-		background-repeat: no-repeat;
-		/* Prevent items from breaking between columns */
+		box-shadow: var(--shadow-md);
+		background: var(--color-bg-alt);
+		margin-bottom: var(--spacing-sm);
 		break-inside: avoid;
-		-webkit-column-break-inside: avoid;
-		-moz-column-break-inside: avoid;
-		page-break-inside: avoid;
-		margin-bottom: 12px;
+		transition: var(--transition);
+	}
+
+	.gallery-item:hover {
+		transform: scale(1.02);
+		box-shadow: var(--shadow-xl);
+		z-index: 10;
 	}
 
 	.gallery-item img {
@@ -574,12 +600,8 @@ try {
 		width: 100%;
 		height: auto;
 		object-fit: cover;
-		transition: opacity 0.3s ease, transform 0.4s ease;
-		opacity: 0; /* reveal after full-res loads */
-	}
-
-	.gallery-item:hover img {
-		transform: scale(1.04);
+		transition: opacity 0.3s ease;
+		opacity: 0;
 	}
 
 	.gallery-item.loaded img {
@@ -588,39 +610,8 @@ try {
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
-		.container {
-			padding: 0 1rem;
-		}
-
-		.hero {
-			padding: 4rem 0;
-		}
-
 		.hero h1 {
-			font-size: 2.5rem;
-		}
-
-		.hero-subtitle {
-			font-size: 1.2rem; 
-		}
-
-		.instagram-section,
-		.about-section,
-		.events-section,
-		.videos-section,
-		.statement-section,
-		.gallery-section {
-			padding: 3rem 0;
-		}
-
-
-		.gallery-grid {
-			-webkit-column-count: 2;
-			-moz-column-count: 2;
-			column-count: 2;
-			-webkit-column-gap: 8px;
-			-moz-column-gap: 8px;
-			column-gap: 8px;
+			font-size: 3rem;
 		}
 
 		.calendar-embed .calendar-month-view {
@@ -635,9 +626,8 @@ try {
 			height: 500px;
 		}
 
-		.calendar-placeholder,
-		.video-placeholder {
-			padding: 2rem;
+		.gallery-grid {
+			columns: 2 150px;
 		}
 	}
 </style>

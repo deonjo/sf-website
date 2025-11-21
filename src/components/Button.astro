@@ -1,87 +1,105 @@
 ---
 export interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'square';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "square";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
+  type?: "button" | "submit" | "reset";
   class?: string;
   children?: string;
 }
 
 const {
   href,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   disabled = false,
-  type = 'button',
-  class: className = '',
-  children = ''
+  type = "button",
+  class: className = "",
+  children = "",
 } = Astro.props;
 
 // Use our global button styles and add extra customization
-const baseClass = variant === 'primary' ? 'primary-button' : variant === 'secondary' ? 'secondary-button' : '';
+const baseClass =
+  variant === "primary"
+    ? "primary-button"
+    : variant === "secondary"
+      ? "secondary-button"
+      : "";
 
 // For outline and square variants, start with secondary button style
-const variantClass = variant === 'outline' || variant === 'square' ? 'secondary-button' : baseClass;
+const variantClass =
+  variant === "outline" || variant === "square"
+    ? "secondary-button"
+    : baseClass;
 
 // Size classes for additional customization
 const sizeClasses = {
-  sm: 'text-sm',
-  md: '',  // Default size, no additional classes needed
-  lg: 'text-lg'
+  sm: "text-sm",
+  md: "", // Default size, no additional classes needed
+  lg: "text-lg",
 };
 
 // Additional classes for specific variants
-let additionalClasses = '';
-if (variant === 'square') {
-  additionalClasses = 'rounded-md'; // Override the default border-radius for square variant
+let additionalClasses = "";
+if (variant === "square") {
+  additionalClasses = "rounded-md"; // Override the default border-radius for square variant
 }
 
-const buttonClasses = `${variantClass} ${sizeClasses[size]} ${additionalClasses} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`;
-
+const buttonClasses = `${variantClass} ${sizeClasses[size]} ${additionalClasses} ${className} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`;
 ---
 
-{href ? (
-  <a href={href} class={buttonClasses} aria-disabled={disabled}>
-    <slot>{children}</slot>
-  </a>
-) : (
-  <button type={type} class={buttonClasses} disabled={disabled}>
-    <slot>{children}</slot>
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={buttonClasses} aria-disabled={disabled}>
+      <slot>{children}</slot>
+    </a>
+  ) : (
+    <button type={type} class={buttonClasses} disabled={disabled}>
+      <slot>{children}</slot>
+    </button>
+  )
+}
 
 <style>
   .primary-button,
   .secondary-button {
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    display: inline-block;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    letter-spacing: 0.02em;
   }
 
   .primary-button {
-    background: #38b6ff;
+    background: var(--color-primary);
     color: white;
+    border: 2px solid transparent;
   }
 
   .primary-button:hover {
-    background: #2d92cc;
+    background: var(--color-primary-hover);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 
   .secondary-button {
     background: white;
-    color: #38b6ff;
-    border: 2px solid #38b6ff;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
   }
 
   .secondary-button:hover {
-    background: #38b6ff;
+    background: var(--color-primary);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 </style>

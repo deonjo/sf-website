@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
@@ -7,7 +7,11 @@ import Layout from '../layouts/Layout.astro';
 	description="Get connected with Acts College SF! Sign up for updates, ask questions, or learn more about our Christian college fellowship in San Francisco. We'd love to meet you!"
 >
 	<section class="hero">
-		<img src="/header-banners/Connect Banner.jpg" alt="Connect with Acts College SF" class="hero-image">
+		<img
+			src="/header-banners/Connect Banner.jpg"
+			alt="Connect with Acts College SF"
+			class="hero-image"
+		/>
 		<div class="hero-overlay"></div>
 		<div class="container">
 			<h1>Nice to meet you! 👋</h1>
@@ -20,18 +24,16 @@ import Layout from '../layouts/Layout.astro';
 	<section class="form-section">
 		<div class="container">
 			<div class="form-container">
-				<div class="iframe-scale">
-					<iframe
-						src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal"
-						loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"
-						frameborder="0"
-						marginheight="0"
-						marginwidth="0"
-					>
-						Loading…
-					</iframe>
-				</div>
+				<iframe
+					src="https://docs.google.com/forms/d/e/1FAIpQLSfF4jozD1xm1rmQ7ztVI9SgXf0Xzw_2xGWu-Xu0T-s7w82edQ/viewform?embedded=true&chrome=false&header=false&hl=en&rm=minimal"
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					frameborder="0"
+					marginheight="0"
+					marginwidth="0"
+				>
+					Loading…
+				</iframe>
 			</div>
 		</div>
 	</section>
@@ -40,8 +42,10 @@ import Layout from '../layouts/Layout.astro';
 		<div class="container">
 			<div class="info-content">
 				<p>
-					Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. 
-					We gather weekly for worship, Bible study, and fellowship as we grow together in our faith.
+					Acts College SF is a Christian fellowship serving college
+					students and young professionals in the San Francisco area.
+					We gather weekly for worship, Bible study, and fellowship as
+					we grow together in our faith.
 				</p>
 			</div>
 		</div>
@@ -51,18 +55,22 @@ import Layout from '../layouts/Layout.astro';
 <style>
 	/* Base Container */
 	.container {
-		max-width: var(--container-width-small);
+		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 var(--space-md);
+		padding: 0 var(--spacing-sm);
 	}
 
 	/* Hero Section */
 	.hero {
 		position: relative;
 		color: white;
-		padding: var(--space-xl) 0 var(--space-lg);
+		padding: var(--spacing-xl) 0;
 		text-align: center;
 		overflow: hidden;
+		min-height: 60vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.hero-image {
@@ -81,161 +89,100 @@ import Layout from '../layouts/Layout.astro';
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: var(--overlay);
+		background: linear-gradient(
+			to bottom,
+			rgba(15, 23, 42, 0.4),
+			rgba(15, 23, 42, 0.8)
+		);
+		backdrop-filter: blur(2px);
 		z-index: -1;
 	}
 
 	.hero h1 {
-		font-size: var(--font-xlarge);
-		font-weight: 700;
-		margin-bottom: var(--space-md);
+		font-size: clamp(3rem, 6vw, 4.5rem);
+		font-weight: 800;
+		margin-bottom: var(--spacing-sm);
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+		color: white;
 	}
 
 	.hero-subtitle {
-		font-size: var(--font-medium);
+		font-size: clamp(1.25rem, 3vw, 1.5rem);
 		line-height: 1.6;
 		opacity: 0.95;
-		max-width: var(--container-width-small);
-		margin: 0 auto var(--space-sm);
+		max-width: 700px;
+		margin: 0 auto;
+		font-weight: 500;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
 	/* Form Section */
 	.form-section {
-		padding: var(--space-md) 0 var(--space-xl);
+		padding: var(--spacing-lg) 0 var(--spacing-xl);
 		background: var(--color-bg);
 	}
 
 	.form-section .container {
-		max-width: var(--form-width);
+		max-width: 900px;
 		margin: 0 auto;
-		padding: var(--space-sm) var(--space-md) var(--space-md);
+		padding: var(--spacing-sm);
 	}
 
-	/* Scaled iframe wrapper to make the embedded Google Form more compact.
-	   Note: We cannot style the form itself because it is inside a cross-origin iframe.
-	   This wrapper scales the entire iframe as a safe workaround. */
+	/* Scaled iframe wrapper */
 	.form-container {
-		--form-scale: 0.88;
-		--form-height: 1500px;
 		position: relative;
 		overflow: hidden;
-		border-radius: var(--radius-lg);
-		background: var(--color-bg);
-		height: var(--form-height);
+		/* Adjust height as needed for the form content */
+		height: 2000px;
 	}
 
-	.form-container .iframe-scale {
-		transform: scale(var(--form-scale));
-		transform-origin: top left;
-		width: calc(100% / var(--form-scale));
-		height: calc(var(--form-height) / var(--form-scale));
+	@media (min-width: 768px) {
+		.form-container {
+			height: 1600px;
+		}
 	}
 
 	.form-container iframe {
 		display: block;
 		width: 100%;
-		height: var(--form-height);
+		height: 100%;
 		border: 0;
 		background: transparent;
 	}
 
 	/* Info Section */
 	.info-section {
-		padding: var(--space-xl) 0;
+		padding: var(--spacing-xl) 0;
 		background: var(--color-bg-alt);
 		border-top: 1px solid var(--color-border);
 	}
 
 	.info-content {
 		text-align: center;
-		max-width: var(--content-width);
+		max-width: 600px;
 		margin: 0 auto;
 	}
 
 	.info-content p {
-		font-size: var(--font-small);
+		font-size: 1.125rem;
 		line-height: 1.7;
-		color: var(--color-text-lighter);
-		margin-bottom: var(--space-md);
-	}
-
-	/* Quick Links Section - preserved but not currently used on page */
-	.quick-links {
-		background: var(--color-bg);
-		padding: var(--space-md);
-		border-radius: var(--radius);
-		box-shadow: var(--shadow-sm);
-	}
-
-	.quick-links h4 {
 		color: var(--color-text-light);
-		margin-bottom: var(--space-sm);
-		font-size: var(--font-medium);
-	}
-
-	.quick-links ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: var(--space-xs);
-	}
-
-	.quick-links li {
-		padding: var(--space-xs) 0;
-	}
-
-	.quick-links a {
-		color: var(--color-link);
-		text-decoration: none;
-		font-weight: 500;
-		transition: color 0.3s ease;
-	}
-
-	.quick-links a:hover {
-		color: var(--color-link-hover);
-		text-decoration: underline;
+		margin-bottom: var(--spacing-md);
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
-		.container {
-			padding: 0 var(--space-sm);
-		}
-
-		.hero {
-			padding: var(--space-lg) 0 var(--space-md);
-		}
-
 		.hero h1 {
-			font-size: var(--font-large);
-		}
-
-		.hero-subtitle {
-			font-size: var(--font-small);
+			font-size: 2.5rem;
 		}
 
 		.form-section,
 		.info-section {
-			padding: var(--space-md) 0;
-		}
-
-		/* Tighten the gap between hero and form further on mobile */
-		.form-section { 
-			padding-top: var(--space-sm);
-		}
-
-		.form-section .container {
-			padding-top: var(--space-sm);
+			padding: var(--spacing-md) 0;
 		}
 
 		.form-container {
-			--form-scale: 1; /* Don't scale down on smaller screens for readability */
-		}
-
-		.quick-links ul {
-			grid-template-columns: 1fr;
+			--form-scale: 1;
 		}
 	}
 </style>

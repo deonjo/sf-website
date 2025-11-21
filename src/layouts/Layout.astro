@@ -4,8 +4,12 @@ export interface Props {
 	description?: string;
 }
 
-const { title = 'Acts College SF', description = "Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!" } = Astro.props;
-import Analytics from '@vercel/analytics/astro';
+const {
+	title = "Acts College SF",
+	description = "Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!",
+} = Astro.props;
+import Analytics from "@vercel/analytics/astro";
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -22,79 +26,105 @@ import Analytics from '@vercel/analytics/astro';
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL('/social-preview.jpg', Astro.url)} />
+		<meta
+			property="og:image"
+			content={new URL("/social-preview.jpg", Astro.url)}
+		/>
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={Astro.url} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL('/social-preview.jpg', Astro.url)} />
+		<meta
+			property="twitter:image"
+			content={new URL("/social-preview.jpg", Astro.url)}
+		/>
 
 		<title>{title}</title>
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+			rel="stylesheet"
+		/>
 		<script type="speculationrules">
-		  {
-		    "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }],
-		    "prefetch": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
-		  }
+			{
+				"prerender": [
+					{
+						"where": { "href_matches": "/*" },
+						"eagerness": "moderate"
+					}
+				],
+				"prefetch": [
+					{
+						"where": { "href_matches": "/*" },
+						"eagerness": "moderate"
+					}
+				]
+			}
 		</script>
-		<script src="https://app.chibi.sh/scripts/simple.js" data-project-id="sfactscollege-9465"></script>
+		<script
+			src="https://app.chibi.sh/scripts/simple.js"
+			data-project-id="sfactscollege-9465"></script>
 
 		<script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "Church",
-		  "name": "Acts College SF",
-		  "address": {
-		    "@type": "PostalAddress",
-		    "streetAddress": "1275 Harbor Bay Pkwy",
-		    "addressLocality": "Alameda",
-		    "addressRegion": "CA",
-		    "postalCode": "94502",
-		    "addressCountry": "US"
-		  },
-		  "email": "actcollegesf@gmail.com",
-		  "url": "https://sf.actscollege.church/",
-		  "description": "A Christian fellowship serving college students and young professionals from SFSU, USF, and CCSF in the San Francisco area."
-		}
+			{
+				"@context": "https://schema.org",
+				"@type": "Church",
+				"name": "Acts College SF",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "1275 Harbor Bay Pkwy",
+					"addressLocality": "Alameda",
+					"addressRegion": "CA",
+					"postalCode": "94502",
+					"addressCountry": "US"
+				},
+				"email": "actcollegesf@gmail.com",
+				"url": "https://sf.actscollege.church/",
+				"description": "A Christian fellowship serving college students and young professionals from SFSU, USF, and CCSF in the San Francisco area."
+			}
 		</script>
 		<script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "Event",
-		  "name": "Acts College SF Sunday Service",
-		  "eventSchedule": {
-			"@type": "Schedule",
-			"byDay": "Sunday",
-			"startTime": "12:00",
-			"endTime": "13:30",
-			"repeatFrequency": "P1W"
-		  },
-		  "location": {
-			"@type": "Place",
-			"name": "Acts2 Network",
-			"address": {
-			  "@type": "PostalAddress",
-			  "streetAddress": "1275 Harbor Bay Pkwy",
-			  "addressLocality": "Alameda",
-			  "addressRegion": "CA",
-			  "postalCode": "94502"
+			{
+				"@context": "https://schema.org",
+				"@type": "Event",
+				"name": "Acts College SF Sunday Service",
+				"eventSchedule": {
+					"@type": "Schedule",
+					"byDay": "Sunday",
+					"startTime": "12:00",
+					"endTime": "13:30",
+					"repeatFrequency": "P1W"
+				},
+				"location": {
+					"@type": "Place",
+					"name": "Acts2 Network",
+					"address": {
+						"@type": "PostalAddress",
+						"streetAddress": "1275 Harbor Bay Pkwy",
+						"addressLocality": "Alameda",
+						"addressRegion": "CA",
+						"postalCode": "94502"
+					}
+				},
+				"description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
+				"organizer": {
+					"@type": "Organization",
+					"name": "Acts College SF",
+					"url": "https://sf.actscollege.church/"
+				}
 			}
-		  },
-		  "description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
-		  "organizer": {
-			"@type": "Organization",
-			"name": "Acts College SF",
-			"url": "https://sf.actscollege.church/"
-		  }
-		}
 		</script>
 	</head>
 	<body>
 		<nav class="navbar">
 			<div class="nav-container">
-				<a href="/" class="nav-logo"><img src="/favicon.png" alt="Acts College SF Logo" /> Acts College SF</a>
+				<a href="/" class="nav-logo"
+					><img src="/favicon.png" alt="Acts College SF Logo" /> Acts College
+					SF</a
+				>
 				<div class="nav-menu">
 					<a href="/" class="nav-link">Home</a>
 					<a href="/church" class="nav-link">Church</a>
@@ -115,7 +145,10 @@ import Analytics from '@vercel/analytics/astro';
 			<div class="footer-container">
 				<div class="footer-section">
 					<h3>Acts College SF</h3>
-					<p>A Christian fellowship serving college students and young professionals in the San Francisco area.</p>
+					<p>
+						A Christian fellowship serving college students and
+						young professionals in the San Francisco area.
+					</p>
 				</div>
 				<div class="footer-section">
 					<h3>Quick Links</h3>
@@ -123,7 +156,9 @@ import Analytics from '@vercel/analytics/astro';
 						<li><a href="/">Home</a></li>
 						<li><a href="/church">Church</a></li>
 						<li><a href="/connect">Connect</a></li>
-						<li><a href="/statement-of-faith">Statement of Faith</a></li>
+						<li>
+							<a href="/statement-of-faith">Statement of Faith</a>
+						</li>
 					</ul>
 				</div>
 				<div class="footer-section">
@@ -131,115 +166,87 @@ import Analytics from '@vercel/analytics/astro';
 					<p>Email: actcollegesf@gmail.com</p>
 					<p>San Francisco, CA</p>
 				</div>
-			<div class="footer-section" aria-label="Affiliations">
-				<h3>Our Affiliations</h3>
+				<div class="footer-section" aria-label="Affiliations">
+					<h3>Our Affiliations</h3>
 
-				<div class="affiliations-logos">
-					<a class="affiliation-link" href="https://www.acts2.network/" target="_blank" rel="noopener noreferrer" aria-label="Acts 2 Network">
-						<img src="/footer/Acts2+Network.webp" alt="Acts 2 Network" loading="lazy" decoding="async" />
-					</a>
-					<a class="affiliation-link" href="https://www.actscollege.church/" target="_blank" rel="noopener noreferrer" aria-label="Acts2 College">
-						<img src="/footer/Acts2+College.webp" alt="Acts2 College" loading="lazy" decoding="async" />
-					</a>
-					<a class="affiliation-link" href="https://www.namb.net/send-network/" target="_blank" rel="noopener noreferrer" aria-label="Send Network (NAMB)">
-						<img src="/footer/SEND+Network.webp" alt="Send Network" loading="lazy" decoding="async" />
-					</a>
+					<div class="affiliations-logos">
+						<a
+							class="affiliation-link"
+							href="https://www.acts2.network/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Acts 2 Network"
+						>
+							<img
+								src="/footer/Acts2+Network.webp"
+								alt="Acts 2 Network"
+								loading="lazy"
+								decoding="async"
+							/>
+						</a>
+						<a
+							class="affiliation-link"
+							href="https://www.actscollege.church/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Acts2 College"
+						>
+							<img
+								src="/footer/Acts2+College.webp"
+								alt="Acts2 College"
+								loading="lazy"
+								decoding="async"
+							/>
+						</a>
+						<a
+							class="affiliation-link"
+							href="https://www.namb.net/send-network/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Send Network (NAMB)"
+						>
+							<img
+								src="/footer/SEND+Network.webp"
+								alt="Send Network"
+								loading="lazy"
+								decoding="async"
+							/>
+						</a>
+					</div>
+					<p class="affiliations-description">
+						Acts College Church is a part of Acts2 College, the
+						Acts2 Network, and the Send Network.
+					</p>
 				</div>
-				<p class="affiliations-description">Acts College Church is a part of Acts2 College, the Acts2 Network, and the Send Network.</p>
-			</div>
 			</div>
 			<div class="footer-bottom">
-				<p>&copy; {new Date().getFullYear()} Acts College SF. All rights reserved.</p>
+				<p>
+					&copy; {new Date().getFullYear()} Acts College SF. All rights
+					reserved.
+				</p>
 			</div>
 		</footer>
 		<Analytics />
 	</body>
 </html>
 
-<style is:global>
-	:root {
-		/* Color variables */
-		--color-primary: #38b6ff;
-		--color-primary-dark: #2d92cc;
-		--color-text: #333;
-		--color-text-light: #374151;
-		--color-text-lighter: #475569;
-		--color-heading: #1e293b;
-		--color-link: #38b6ff;
-		--color-link-hover: #2d92cc;
-		--color-bg: #fff;
-		--color-bg-alt: #f8fafc;
-		--color-border: #e2e8f0;
-		--color-footer-bg: #1f2937;
-		--color-footer-text: #f9fafb;
-		--color-footer-text-light: #d1d5db;
-		--color-footer-border: #374151;
-		--color-footer-copyright: #9ca3af;
-
-		/* Layout variables */
-		--container-max-width: 1200px;
-		--container-width: 1200px;
-		--container-width-small: 800px;
-		--container-width-large: 900px;
-		--content-max: 900px;
-		--content-width: 600px;
-		--card-max: 700px;
-		--form-width: 900px;
-		--nav-height: 70px;
-
-		/* Spacing variables */
-		--spacing-xs: 0.5rem;
-		--spacing-sm: 1rem;
-		--spacing-md: 2rem;
-		--spacing-lg: 3rem;
-		--spacing-xl: 5rem;
-		--space-xs: 0.5rem;
-		--space-sm: 1rem;
-		--space-md: 2rem;
-		--space-lg: 3rem;
-		--space-xl: 5rem;
-
-		/* Typography variables */
-		--font-small: 1.1rem;
-		--font-medium: 1.2rem;
-		--font-large: 2.2rem;
-		--font-xlarge: 2.8rem;
-
-		/* Effects variables */
-		--shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
-		--shadow: 0 10px 25px rgba(0,0,0,0.08);
-		--radius: 16px;
-		--radius-lg: 16px;
-		--overlay: rgba(0, 0, 0, 0.5);
-	}
-
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	body {
-		font-family: 'Poppins', sans-serif;
-		line-height: 1.6;
-		color: var(--color-text);
-		background-color: var(--color-bg);
-	}
-
+<style>
 	/* Navigation Styles */
 	.navbar {
-		background: var(--color-bg);
-		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid var(--color-border);
 		position: sticky;
 		top: 0;
 		z-index: 1000;
 		width: 100%;
+		transition: var(--transition);
 	}
 
 	.nav-container {
 		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 var(--spacing-md);
+		padding: 0 var(--spacing-sm);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -247,9 +254,10 @@ import Analytics from '@vercel/analytics/astro';
 	}
 
 	.nav-logo {
-		font-size: 1.8rem;
+		font-family: var(--font-heading);
+		font-size: 1.5rem;
 		font-weight: 700;
-		color: black;
+		color: var(--color-text);
 		text-decoration: none;
 		display: flex;
 		align-items: center;
@@ -257,13 +265,13 @@ import Analytics from '@vercel/analytics/astro';
 	}
 
 	.nav-logo img {
-		height: 50px;
-		vertical-align: middle;
+		height: 40px;
+		width: auto;
 	}
 
 	.nav-menu {
 		display: flex;
-		gap: var(--spacing-md);
+		gap: var(--spacing-sm);
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -273,14 +281,14 @@ import Analytics from '@vercel/analytics/astro';
 		color: var(--color-text-light);
 		text-decoration: none;
 		font-weight: 500;
-		transition: all 0.3s ease;
-		padding: var(--spacing-xs) var(--spacing-sm);
-		border-radius: 4px;
-		display: inline-block;
+		transition: var(--transition);
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-sm);
+		font-family: var(--font-heading);
 	}
 
 	.nav-link:hover {
-		color: var(--color-link);
+		color: var(--color-primary);
 		background-color: var(--color-bg-alt);
 	}
 
@@ -288,14 +296,15 @@ import Analytics from '@vercel/analytics/astro';
 		display: none;
 		flex-direction: column;
 		cursor: pointer;
+		gap: 6px;
 	}
 
 	.hamburger span {
 		width: 25px;
-		height: 3px;
-		background: var(--color-text-light);
-		margin: 3px 0;
+		height: 2px;
+		background: var(--color-text);
 		transition: 0.3s;
+		border-radius: 2px;
 	}
 
 	main {
@@ -305,29 +314,30 @@ import Analytics from '@vercel/analytics/astro';
 	/* Footer Styles */
 	.footer {
 		background: var(--color-footer-bg);
-		color: white;
-		padding: var(--spacing-lg) 0 var(--spacing-sm);
+		color: var(--color-footer-text);
+		padding: var(--spacing-xl) 0 var(--spacing-md);
 		margin-top: auto;
 	}
 
 	.footer-container {
 		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 var(--spacing-md);
+		padding: 0 var(--spacing-sm);
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: var(--spacing-md);
+		gap: var(--spacing-lg);
 	}
 
 	.footer-section h3 {
-		font-size: 1.2rem;
-		margin-bottom: var(--spacing-sm);
+		font-size: 1.25rem;
+		margin-bottom: var(--spacing-md);
 		color: var(--color-footer-text);
 	}
 
 	.footer-section p {
 		color: var(--color-footer-text-light);
-		margin-bottom: var(--spacing-xs);
+		margin-bottom: var(--spacing-sm);
+		line-height: 1.6;
 	}
 
 	.footer-section ul {
@@ -336,17 +346,17 @@ import Analytics from '@vercel/analytics/astro';
 	}
 
 	.footer-section ul li {
-		margin-bottom: var(--spacing-xs);
+		margin-bottom: 0.75rem;
 	}
 
 	.footer-section a {
 		color: var(--color-footer-text-light);
 		text-decoration: none;
-		transition: color 0.3s ease;
+		transition: var(--transition);
 	}
 
 	.footer-section a:hover {
-		color: var(--color-link-hover);
+		color: var(--color-primary);
 	}
 
 	/* Affiliation Styles */
@@ -360,91 +370,96 @@ import Analytics from '@vercel/analytics/astro';
 	.affiliations-logos img {
 		height: 30px;
 		max-width: 160px;
+		opacity: 0.8;
+		transition: var(--transition);
+	}
+
+	.affiliations-logos img:hover {
+		opacity: 1;
 	}
 
 	.affiliations-description {
-		font-size: 0.9rem;
-		line-height: 1.4;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		opacity: 0.7;
 	}
 
 	.footer-bottom {
 		border-top: 1px solid var(--color-footer-border);
-		margin-top: var(--spacing-md);
-		padding-top: var(--spacing-sm);
+		margin-top: var(--spacing-xl);
+		padding-top: var(--spacing-md);
 		text-align: center;
-		color: var(--color-footer-copyright);
+		color: var(--color-footer-text-light);
+		font-size: 0.875rem;
 	}
 
 	/* Mobile Styles */
 	@media (max-width: 768px) {
-		.nav-container {
-			padding: 0 var(--spacing-sm);
-		}
-
 		.nav-menu {
 			position: fixed;
 			top: var(--nav-height);
-			left: -100%;
+			left: 0;
 			width: 100%;
-			height: calc(100vh - var(--nav-height));
-			background: var(--color-bg);
+			height: 0;
+			background: rgba(255, 255, 255, 0.98);
+			backdrop-filter: blur(10px);
 			flex-direction: column;
-			justify-content: flex-start;
+			justify-content: center;
 			align-items: center;
-			padding-top: var(--spacing-md);
-			transition: left 0.3s ease;
-			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			overflow: hidden;
+			transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			border-bottom: 1px solid var(--color-border);
 		}
 
 		.nav-menu.active {
-			left: 0;
+			height: calc(100vh - var(--nav-height));
 		}
 
 		.hamburger {
 			display: flex;
 		}
 
+		.hamburger.active span:nth-child(1) {
+			transform: rotate(45deg) translate(5px, 6px);
+		}
+
+		.hamburger.active span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.hamburger.active span:nth-child(3) {
+			transform: rotate(-45deg) translate(5px, -6px);
+		}
+
 		.nav-link {
-			font-size: 1.2rem;
-			margin: var(--spacing-sm) 0;
+			font-size: 1.5rem;
+			margin: 1rem 0;
 		}
 
 		.footer-container {
-			padding: 0 var(--spacing-sm);
 			grid-template-columns: 1fr;
-			gap: 1.5rem;
-		}
-
-		.affiliations-logos {
-			justify-content: center;
-		}
-
-		.affiliations-logos img {
-			height: 20px;
-		}
-
-		.affiliations-description {
-			text-align: center;
+			gap: var(--spacing-md);
 		}
 	}
 </style>
 
 <script>
 	// Mobile menu toggle
-	document.addEventListener('DOMContentLoaded', function() {
-		const hamburger = document.querySelector('.hamburger');
-		const navMenu = document.querySelector('.nav-menu');
+	document.addEventListener("DOMContentLoaded", function () {
+		const hamburger = document.querySelector(".hamburger");
+		const navMenu = document.querySelector(".nav-menu");
 
 		if (hamburger && navMenu) {
-			hamburger.addEventListener('click', function() {
-				navMenu.classList.toggle('active');
+			hamburger.addEventListener("click", function () {
+				hamburger.classList.toggle("active");
+				navMenu.classList.toggle("active");
 			});
 
 			// Close menu when clicking on a link
-			const navLinks = document.querySelectorAll('.nav-link');
-			navLinks.forEach(link => {
-				link.addEventListener('click', () => {
-					navMenu.classList.remove('active');
+			const navLinks = document.querySelectorAll(".nav-link");
+			navLinks.forEach((link) => {
+				link.addEventListener("click", () => {
+					navMenu.classList.remove("active");
 				});
 			});
 		}
