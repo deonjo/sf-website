@@ -2,14 +2,18 @@
 export interface Props {
 	title?: string;
 	description?: string;
+	keywords?: string;
 }
 
 const {
-	title = "Acts College SF",
-	description = "Acts College SF is a Christian fellowship serving college students and young professionals in the San Francisco area. We're open to all students regardless of your background. We invite you to come check us out!",
+	title = "Acts College SF | Christian Fellowship at SFSU & NOPA",
+	description = "Acts College SF is a Christian fellowship and club for college students at USF, SFSU, and CCSF in San Francisco. Join us for worship, Bible study, and community!",
+	keywords = "Klesis, Klesis SF, Klesis San Francisco, USF Christian fellowship, SFSU Christian fellowship, Christian club USF, Christian club SFSU, San Francisco Christian fellowship, SF Christian club, college ministry San Francisco, Acts College SF, Koinonia SFSU, CCSF Christian fellowship, Bay Area college ministry",
 } = Astro.props;
 import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -18,22 +22,32 @@ import "../styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+
+		<!-- Geo-targeting for San Francisco -->
+		<meta name="geo.region" content="US-CA" />
+		<meta name="geo.placename" content="San Francisco" />
+		<meta name="geo.position" content="37.7749;-122.4194" />
+		<meta name="ICBM" content="37.7749, -122.4194" />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta
 			property="og:image"
 			content={new URL("/social-preview.jpg", Astro.url)}
 		/>
+		<meta property="og:site_name" content="Klesis SF - Acts College SF" />
+		<meta property="og:locale" content="en_US" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:url" content={canonicalURL} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta
@@ -68,11 +82,21 @@ import "../styles/global.css";
 			src="https://app.chibi.sh/scripts/simple.js"
 			data-project-id="sfactscollege-9465"></script>
 
+		<!-- Organization Schema with alternate names for SEO -->
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
-				"@type": "Church",
+				"@type": ["Church", "Organization", "EducationalOrganization"],
 				"name": "Acts College SF",
+				"alternateName": [
+					"Klesis SF",
+					"Klesis San Francisco",
+					"Acts College SF",
+					"Koinonia SFSU",
+					"USF Christian Fellowship",
+					"SFSU Christian Fellowship",
+					"SF Christian Club"
+				],
 				"address": {
 					"@type": "PostalAddress",
 					"streetAddress": "1275 Harbor Bay Pkwy",
@@ -81,11 +105,44 @@ import "../styles/global.css";
 					"postalCode": "94502",
 					"addressCountry": "US"
 				},
+				"areaServed": [
+					{
+						"@type": "City",
+						"name": "San Francisco",
+						"sameAs": "https://en.wikipedia.org/wiki/San_Francisco"
+					},
+					{
+						"@type": "CollegeOrUniversity",
+						"name": "University of San Francisco",
+						"alternateName": "USF",
+						"sameAs": "https://www.usfca.edu/"
+					},
+					{
+						"@type": "CollegeOrUniversity",
+						"name": "San Francisco State University",
+						"alternateName": "SFSU",
+						"sameAs": "https://www.sfsu.edu/"
+					},
+					{
+						"@type": "CollegeOrUniversity",
+						"name": "City College of San Francisco",
+						"alternateName": "CCSF",
+						"sameAs": "https://www.ccsf.edu/"
+					}
+				],
 				"email": "actcollegesf@gmail.com",
 				"url": "https://sf.actscollege.church/",
-				"description": "A Christian fellowship serving college students and young professionals from SFSU, USF, and CCSF in the San Francisco area."
+				"sameAs": [
+					"https://www.instagram.com/klesis.sanfrancisco/",
+					"https://www.instagram.com/sfsukoinonia/",
+					"https://www.actscollege.church/",
+					"https://www.acts2.network/"
+				],
+				"description": "Klesis SF (Acts College SF) is a Christian fellowship and club serving college students at USF, SFSU, and CCSF in San Francisco. We offer weekly worship, Bible study, and community for students seeking faith and fellowship.",
+				"keywords": "Klesis, Christian fellowship, USF, SFSU, San Francisco, college ministry, Bible study, worship, Christian club"
 			}
 		</script>
+		<!-- Event Schema for Sunday Services -->
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
@@ -114,6 +171,26 @@ import "../styles/global.css";
 					"@type": "Organization",
 					"name": "Acts College SF",
 					"url": "https://sf.actscollege.church/"
+				},
+				"audience": {
+					"@type": "EducationalAudience",
+					"educationalRole": "student",
+					"audienceType": "College Students"
+				}
+			}
+		</script>
+		<!-- BreadcrumbList for better navigation in search results -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"name": "Acts College SF",
+				"alternateName": ["Klesis SF", "Klesis San Francisco", "USF Christian Fellowship", "SFSU Christian Fellowship"],
+				"url": "https://sf.actscollege.church/",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": "https://sf.actscollege.church/?q={search_term_string}",
+					"query-input": "required name=search_term_string"
 				}
 			}
 		</script>
@@ -146,8 +223,9 @@ import "../styles/global.css";
 				<div class="footer-section">
 					<h3>Acts College SF</h3>
 					<p>
-						A Christian fellowship serving college students and
-						young professionals in the San Francisco area.
+						A Christian fellowship and club serving college students 
+						at USF, SFSU, and CCSF in San Francisco. Join our community 
+						for worship, Bible study, and fellowship.
 					</p>
 				</div>
 				<div class="footer-section">
