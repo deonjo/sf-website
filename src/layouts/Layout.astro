@@ -143,42 +143,57 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			}
 		</script>
 		<!-- Event Schema for Sunday Services -->
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "Event",
-				"name": "Acts College SF Sunday Service",
-				"eventSchedule": {
-					"@type": "Schedule",
-					"byDay": "Sunday",
-					"startTime": "12:00",
-					"endTime": "13:30",
-					"repeatFrequency": "P1W"
-				},
-				"location": {
-					"@type": "Place",
-					"name": "Acts2 Network",
-					"address": {
-						"@type": "PostalAddress",
-						"streetAddress": "1275 Harbor Bay Pkwy",
-						"addressLocality": "Alameda",
-						"addressRegion": "CA",
-						"postalCode": "94502"
-					}
-				},
-				"description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
-				"organizer": {
-					"@type": "Organization",
-					"name": "Acts College SF",
-					"url": "https://sf.actscollege.church/"
-				},
-				"audience": {
-					"@type": "EducationalAudience",
-					"educationalRole": "student",
-					"audienceType": "College Students"
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Event",
+			"name": "Acts College SF Sunday Service",
+			"startDate": (() => {
+				const now = new Date();
+				const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
+				const nextSunday = new Date(now);
+				nextSunday.setDate(now.getDate() + daysUntilSunday);
+				return nextSunday.toISOString().split('T')[0] + 'T12:00:00-08:00';
+			})(),
+			"endDate": (() => {
+				const now = new Date();
+				const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
+				const nextSunday = new Date(now);
+				nextSunday.setDate(now.getDate() + daysUntilSunday);
+				return nextSunday.toISOString().split('T')[0] + 'T13:30:00-08:00';
+			})(),
+			"eventStatus": "https://schema.org/EventScheduled",
+			"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+			"image": "https://sf.actscollege.church/social-preview.jpg",
+			"eventSchedule": {
+				"@type": "Schedule",
+				"byDay": "https://schema.org/Sunday",
+				"startTime": "12:00:00-08:00",
+				"endTime": "13:30:00-08:00",
+				"repeatFrequency": "P1W"
+			},
+			"location": {
+				"@type": "Place",
+				"name": "Acts2 Network",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "1275 Harbor Bay Pkwy",
+					"addressLocality": "Alameda",
+					"addressRegion": "CA",
+					"postalCode": "94502",
+					"addressCountry": "US"
 				}
+			},
+			"description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
+			"organizer": {
+				"@type": "Organization",
+				"name": "Acts College SF",
+				"url": "https://sf.actscollege.church/"
+			},
+			"performer": {
+				"@type": "Organization",
+				"name": "Acts College SF"
 			}
-		</script>
+		})} /></script>
 		<!-- BreadcrumbList for better navigation in search results -->
 		<script type="application/ld+json">
 			{
