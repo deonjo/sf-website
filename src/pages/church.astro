@@ -1,12 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.astro";
+import { GATHERING } from "../consts";
 ---
 
 <Layout
-	title="Sunday Church Service | USF & SFSU Rides"
-	description="Join Acts College SF for Sunday church service at 12:00 PM. Free rides from USF and SFSU campuses! Christian fellowship for college students in San Francisco."
-	keywords="Klesis SF church, Sunday service San Francisco, Christian church USF, Christian church SFSU, college church SF, rides to church USF, rides to church SFSU, Acts College SF church, Christian fellowship Sunday service, college ministry church"
+	title="Sunday Church Service | Christian Discipleship in San Francisco"
+	description="Join Acts College SF for Christian Discipleship every Sunday at 12:00 PM at The Collective Studios, 1751 Fulton St, San Francisco. Christian fellowship for college students."
+	keywords="Klesis SF church, Sunday service San Francisco, Christian discipleship San Francisco, Christian church USF, Christian church SFSU, college church SF, Acts College SF church, Christian fellowship Sunday service, college ministry church"
 >
 	<section class="hero">
 		<img
@@ -30,24 +31,27 @@ import Button from "../components/Button.astro";
 						<div class="service-details">
 							<div class="detail-item">
 								<span class="detail-label">Location</span>
-								<span class="detail-value">Acts2 Network</span>
+								<span class="detail-value">{GATHERING.venue}</span>
 							</div>
 							<div class="detail-item">
 								<span class="detail-label">Start Time</span>
 								<span class="detail-value"
-									>Sundays @ 12:00 PM</span
+									>Sundays @ {GATHERING.time}</span
 								>
 							</div>
 							<div class="detail-item">
 								<span class="detail-label">Address</span>
 								<span class="detail-value"
-									>1275 Harbor Bay Pkwy<br />Alameda, CA 94502</span
+									>{GATHERING.street}<br />{GATHERING.city}, {
+										GATHERING.region
+									} {GATHERING.postalCode}</span
 								>
 							</div>
 						</div>
 						<div class="map-embed">
 							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.643479804571!2d-122.23667682286083!3d37.728045514848546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f8515e7d0b39f%3A0x5c2dd0ff685ebc66!2sActs2%20Network!5e0!3m2!1sen!2sus&output=embed&layer=c&cbll=37.728045514848546,-122.23667682286083&cbp=11,0,0,0,0"
+								src={GATHERING.mapEmbedUrl}
+								title={`Map of ${GATHERING.venue}`}
 								allowfullscreen=""
 								loading="lazy"
 								referrerpolicy="no-referrer-when-downgrade"
@@ -61,107 +65,23 @@ import Button from "../components/Button.astro";
 
 		<div class="belief-content">
 			<p>
-				Koinonia SFSU and Klesis SF meet together for Sunday service in Alameda. As a Christian club and 
-				fellowship serving college students in San Francisco, we gather as one 
-				community to worship, learn from God's Word, and fellowship together.
+				Koinonia SFSU and Klesis SF meet together for {GATHERING.name} every
+				Sunday at {GATHERING.time}. As a Christian club and fellowship serving
+				college students in San Francisco, we gather as one community to
+				worship, learn from God's Word, and fellowship together.
 			</p>
 
 			<p>
-				We offer free rides to our Sunday services from both SFSU and USF
-				campuses. If you're a student looking for a Christian fellowship 
-				in SF and need a ride, please email us at <a
-					href="mailto:actcollegesf@gmail.com"
+				{GATHERING.format}
+			</p>
+
+			<p>
+				If you have a question, or you'd just like to let us know you're
+				coming, email us at <a href="mailto:actcollegesf@gmail.com"
 					>actcollegesf@gmail.com</a
-				> for more info.
+				> and we'll be glad to help.
 			</p>
 		</div>
-		</div>
-	</section>
-
-	<section class="pickup-section">
-		<div class="container">
-			<h2>Pickup Locations</h2>
-			<p class="pickup-description">
-				Need a ride to our Sunday service? We offer pickup from these
-				campus locations. Please contact us in advance to arrange
-				transportation.
-			</p>
-
-			<div class="pickup-maps-container">
-				<div class="map-card-container">
-					<div class="map-card">
-						<div class="map-card-content">
-							<div class="service-details">
-								<div class="detail-item">
-									<span class="detail-label">Location</span>
-									<span class="detail-value"
-										><a
-											href="https://maps.app.goo.gl/KXmqoQmiPYwGjNj66"
-											target="_blank"
-											rel="noopener noreferrer"
-											>USF - War Memorial Gym</a
-										></span
-									>
-								</div>
-								<div class="detail-item">
-									<span class="detail-label">Pickup Time</span
-									>
-									<span class="detail-value"
-										>Sundays @ 11:00 AM</span
-									>
-								</div>
-							</div>
-							<div class="map-embed">
-								<iframe
-									src="https://www.google.com/maps?q=War%20Memorial%20Gym%2C%20San%20Francisco%2C%20CA%2094117&output=embed"
-									allowfullscreen=""
-									loading="lazy"
-									referrerpolicy="no-referrer-when-downgrade"
-									style="border:0; min-width: 300px;"
-								>
-								</iframe>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="map-card-container">
-					<div class="map-card">
-						<div class="map-card-content">
-							<div class="service-details">
-								<div class="detail-item">
-									<span class="detail-label">Location</span>
-									<span class="detail-value"
-										><a
-											href="https://maps.app.goo.gl/QHVDrKGqZQcQf5Kk9"
-											target="_blank"
-											rel="noopener noreferrer"
-											>SFSU - Mashouf Gym</a
-										></span
-									>
-								</div>
-								<div class="detail-item">
-									<span class="detail-label">Pickup Time</span
-									>
-									<span class="detail-value"
-										>Sundays @ 11:00 AM</span
-									>
-								</div>
-							</div>
-							<div class="map-embed">
-								<iframe
-									src="https://www.google.com/maps?q=Mashouf%20Wellness%20Center%20SFSU&output=embed"
-									allowfullscreen=""
-									loading="lazy"
-									referrerpolicy="no-referrer-when-downgrade"
-									style="border:0; min-width: 300px;"
-								>
-								</iframe>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</section>
 
@@ -361,35 +281,6 @@ import Button from "../components/Button.astro";
 		font-weight: 600;
 	}
 
-	.pickup-section {
-		padding: var(--spacing-xl) 0;
-		background: var(--color-bg-alt);
-	}
-
-	.pickup-description {
-		font-size: 1.125rem;
-		color: var(--color-text-light);
-		max-width: 800px;
-		margin: 0 auto var(--spacing-lg);
-		line-height: 1.7;
-		text-align: center;
-	}
-
-	.pickup-maps-container {
-		display: flex;
-		gap: var(--spacing-md);
-		justify-content: center;
-		flex-wrap: wrap;
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.pickup-maps-container .map-card-container {
-		flex: 1;
-		min-width: 300px;
-		margin: 0;
-	}
-
 	.join-section {
 		padding: var(--spacing-xl) 0;
 		background: var(--color-bg);
@@ -415,10 +306,6 @@ import Button from "../components/Button.astro";
 	@media (max-width: 768px) {
 		.hero h1 {
 			font-size: 2.5rem;
-		}
-
-		.pickup-maps-container {
-			flex-direction: column;
 		}
 
 		.detail-item {

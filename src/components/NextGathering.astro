@@ -1,0 +1,116 @@
+---
+/**
+ * "This Sunday" banner: what is happening, when, and where.
+ *
+ * The date is rendered at build time so it is present without JavaScript, then
+ * recalculated in the browser on load. This is a static build, so without that
+ * second pass the date would freeze at the last deploy and start pointing at a
+ * Sunday that has already passed.
+ */
+import { GATHERING } from "../consts";
+import { formatLongDate, nextGatheringDate, pacificDay } from "../lib/dates";
+
+const next = nextGatheringDate();
+---
+
+<section class="next-gathering-section">
+	<div class="container">
+		<aside
+			class="next-gathering"
+			aria-label={`Next ${GATHERING.day} gathering`}
+		>
+			<p class="next-gathering__eyebrow">This {GATHERING.day}</p>
+			<p class="next-gathering__what">{GATHERING.name}</p>
+			<p class="next-gathering__when">
+				<time datetime={pacificDay(next)} data-next-gathering
+					>{formatLongDate(next)}</time
+				>
+				<span aria-hidden="true"> · </span>{GATHERING.time}
+			</p>
+			<p class="next-gathering__where">
+				{GATHERING.venue},{" "}
+				<a href={GATHERING.mapUrl} target="_blank" rel="noopener noreferrer"
+					>{GATHERING.address}</a
+				>
+			</p>
+		</aside>
+	</div>
+</section>
+
+<style>
+	.next-gathering-section {
+		padding: var(--spacing-lg) 0 0;
+		background: var(--color-bg);
+	}
+
+	.container {
+		width: 100%;
+		max-width: var(--container-max-width);
+		margin: 0 auto;
+		padding: 0 var(--spacing-sm);
+	}
+
+	.next-gathering {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		padding: var(--spacing-md);
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+		border-left: 4px solid var(--color-primary);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.next-gathering > p {
+		margin: 0;
+	}
+
+	.next-gathering__eyebrow {
+		font-size: 0.8rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-lighter);
+	}
+
+	.next-gathering__what {
+		font-family: var(--font-heading);
+		font-size: 1.75rem;
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--color-text);
+	}
+
+	.next-gathering__when {
+		font-size: 1.15rem;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.next-gathering__where {
+		color: var(--color-text-light);
+	}
+
+	@media (max-width: 640px) {
+		.next-gathering {
+			padding: var(--spacing-sm);
+		}
+
+		.next-gathering__what {
+			font-size: 1.5rem;
+		}
+	}
+</style>
+
+<script>
+	import { formatLongDate, nextGatheringDate, pacificDay } from "../lib/dates";
+
+	const next = nextGatheringDate();
+
+	for (const el of document.querySelectorAll<HTMLTimeElement>(
+		"[data-next-gathering]",
+	)) {
+		el.dateTime = pacificDay(next);
+		el.textContent = formatLongDate(next);
+	}
+</script>

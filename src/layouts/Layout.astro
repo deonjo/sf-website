@@ -12,8 +12,16 @@ const {
 } = Astro.props;
 import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
+import { GATHERING } from "../consts";
+import { nextGatheringDate, pacificDay } from "../lib/dates";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+/**
+ * The Event schema needs a concrete date, so point it at the next occurrence of
+ * the gathering day rather than a hardcoded one that silently goes stale.
+ */
+const nextGatheringDay = pacificDay(nextGatheringDate());
 ---
 
 <!doctype html>
@@ -99,10 +107,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				],
 				"address": {
 					"@type": "PostalAddress",
-					"streetAddress": "1275 Harbor Bay Pkwy",
-					"addressLocality": "Alameda",
+					"streetAddress": "1751 Fulton St",
+					"addressLocality": "San Francisco",
 					"addressRegion": "CA",
-					"postalCode": "94502",
+					"postalCode": "94117",
 					"addressCountry": "US"
 				},
 				"areaServed": [
@@ -146,44 +154,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "Event",
-			"name": "Acts College SF Sunday Service",
-			"startDate": (() => {
-				const now = new Date();
-				const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
-				const nextSunday = new Date(now);
-				nextSunday.setDate(now.getDate() + daysUntilSunday);
-				return nextSunday.toISOString().split('T')[0] + 'T12:00:00-08:00';
-			})(),
-			"endDate": (() => {
-				const now = new Date();
-				const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
-				const nextSunday = new Date(now);
-				nextSunday.setDate(now.getDate() + daysUntilSunday);
-				return nextSunday.toISOString().split('T')[0] + 'T13:30:00-08:00';
-			})(),
+			"name": GATHERING.name,
+			"startDate": `${nextGatheringDay}T${GATHERING.startTime}:00-08:00`,
+			"endDate": `${nextGatheringDay}T${GATHERING.endTime}:00-08:00`,
 			"eventStatus": "https://schema.org/EventScheduled",
 			"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
 			"image": "https://sf.actscollege.church/social-preview.jpg",
 			"eventSchedule": {
 				"@type": "Schedule",
 				"byDay": "https://schema.org/Sunday",
-				"startTime": "12:00:00-08:00",
-				"endTime": "13:30:00-08:00",
+				"startTime": `${GATHERING.startTime}:00-08:00`,
+				"endTime": `${GATHERING.endTime}:00-08:00`,
 				"repeatFrequency": "P1W"
 			},
 			"location": {
 				"@type": "Place",
-				"name": "Acts2 Network",
+				"name": GATHERING.venue,
 				"address": {
 					"@type": "PostalAddress",
-					"streetAddress": "1275 Harbor Bay Pkwy",
-					"addressLocality": "Alameda",
-					"addressRegion": "CA",
-					"postalCode": "94502",
-					"addressCountry": "US"
+					"streetAddress": GATHERING.street,
+					"addressLocality": GATHERING.city,
+					"addressRegion": GATHERING.region,
+					"postalCode": GATHERING.postalCode,
+					"addressCountry": GATHERING.country
 				}
 			},
-			"description": "Join us for our weekly Sunday service for worship, Bible study, and fellowship. Rides available from SFSU and USF.",
+			"description": `Join us for ${GATHERING.name}, our weekly gathering for worship, Bible study, and fellowship. ${GATHERING.format}`,
 			"organizer": {
 				"@type": "Organization",
 				"name": "Acts College SF",
